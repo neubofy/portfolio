@@ -15,9 +15,17 @@ export default function LiveBackground() {
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
 
+        let particles: Particle[] = [];
+        let blobs: Blob[] = [];
+        let animationFrameId: number;
         let mouse = { x: -1000, y: -1000 };
 
-        const colors = ['#C5A059', '#22d3ee', '#8b5cf6', '#f43f5e', '#10b981', '#fbbf24']; // Gold, Cyan, Violet, Rose, Emerald, Amber
+        // Desktop Legacy Colors
+        const desktopColors = ['#C5A059', '#22d3ee', '#8b5cf6', '#f43f5e', '#10b981', '#fbbf24'];
+        // Mobile "Nebula" Colors (Deep Gold & Dark Space)
+        const mobileColors = ['#C5A059', '#1a1a1a', '#2c2c2c'];
+
+        const isMobile = width < 768;
 
         // Background Gradient Blobs
         class Blob {
@@ -31,9 +39,9 @@ export default function LiveBackground() {
             constructor(color: string) {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.4; // Slower, smoother movement
-                this.vy = (Math.random() - 0.5) * 0.4;
-                this.size = Math.random() * 300 + 200; // Large fluid spots
+                this.vx = (Math.random() - 0.5) * (isMobile ? 0.2 : 0.4);
+                this.vy = (Math.random() - 0.5) * (isMobile ? 0.2 : 0.4);
+                this.size = isMobile ? Math.random() * 100 + 100 : Math.random() * 300 + 200;
                 this.color = color;
             }
 
@@ -48,7 +56,9 @@ export default function LiveBackground() {
                 if (!ctx) return;
                 ctx.beginPath();
                 const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
-                gradient.addColorStop(0, this.color + '44'); // Vibrant but transparent
+                // Significantly lower opacity on mobile for a 'Deep Space' look
+                const opacity = isMobile ? '1A' : '44'; // 1A is ~10% opacity, 44 is ~27%
+                gradient.addColorStop(0, this.color + opacity);
                 gradient.addColorStop(1, 'transparent');
                 ctx.fillStyle = gradient;
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -56,47 +66,41 @@ export default function LiveBackground() {
             }
         }
 
-        const blobs = colors.map(c => new Blob(c));
-
-        // Tech Particles
-        const particles: Particle[] = [];
-        const particleCount = window.innerWidth < 768 ? 45 : 90; // Increased density
-
+        // Particles (The Mesh/Stars)
         class Particle {
             x: number;
             y: number;
             vx: number;
             vy: number;
             size: number;
-            color: string;
+            baseAlpha: number;
 
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.2;
-                this.vy = (Math.random() - 0.5) * 0.2;
-                this.size = Math.random() * 3 + 0.5;
-                this.color = colors[Math.floor(Math.random() * colors.length)];
+                // Slower starry movement on mobile
+                this.vx = (Math.random() - 0.5) * (isMobile ? 0.1 : 0.5);
+                this.vy = (Math.random() - 0.5) * (isMobile ? 0.1 : 0.5);
+                this.size = Math.random() * 2 + 0.5;
+                this.baseAlpha = Math.random() * 0.5 + 0.2;
             }
 
             update() {
-                const dx = mouse.x - this.x;
-                const dy = mouse.y - this.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                const maxDistance = 250;
+                this.x += this.vx;
+                this.y += this.vy;
 
-                if (distance < maxDistance) {
-                    const forceDirectionX = dx / distance;
-                    const forceDirectionY = dy / distance;
-                    const force = (maxDistance - distance) / maxDistance;
-                    this.vx -= forceDirectionX * force * 0.6;
-                    this.vy -= forceDirectionY * force * 0.6;
+                // Mouse interaction only on desktop
+                if (!isMobile) {
+                    const dx = this.x - mouse.x;
+                    const dy = this.y - mouse.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 150) {
+                        const angle = Math.atan2(dy, dx);
+                        const force = (150 - distance) / 150;
+                        this.vx += Math.cos(angle) * force * 0.02;
+                        this.vy += Math.sin(angle) * force * 0.02;
+                    }
                 }
-
-                this.vx *= 0.98;
-                this.vy *= 0.98;
-                this.x += this.vx + ((Math.random() - 0.5) * 0.1);
-                this.y += this.vy + ((Math.random() - 0.5) * 0.1);
 
                 if (this.x < 0) this.x = width;
                 if (this.x > width) this.x = 0;
@@ -108,19 +112,38 @@ export default function LiveBackground() {
                 if (!ctx) return;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
+
+                // Mobile: Gold/White sparkles ("Starry Night"). Desktop: Standard white.
+                if (isMobile) {
+                    ctx.fillStyle = `rgba(197, 160, 89, ${this.baseAlpha})`; // Gold-ish
+                } else {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                }
                 ctx.fill();
             }
         }
 
-        const init = () => {
-            particles.length = 0;
+        function init() {
+            particles = [];
+            blobs = [];
+
+            // Reduced particle count on mobile for 'Space' feel, not 'Dust' feel
+            const particleCount = isMobile ? 40 : 80;
+
             for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle());
             }
-        };
 
-        const animate = () => {
+            const colorsToUse = isMobile ? mobileColors : desktopColors;
+            // Fewer blobs on mobile to avoid mud
+            const blobCount = isMobile ? 3 : 6;
+
+            for (let i = 0; i < blobCount; i++) {
+                blobs.push(new Blob(colorsToUse[i % colorsToUse.length]));
+            }
+        }
+
+        function animate() {
             if (!ctx) return;
             ctx.clearRect(0, 0, width, height);
 
@@ -129,51 +152,39 @@ export default function LiveBackground() {
                 blob.draw();
             });
 
-            particles.forEach((p, index) => {
-                p.update();
-                p.draw();
+            particles.forEach((particle, index) => {
+                particle.update();
+                particle.draw();
 
-                for (let j = index + 1; j < particles.length; j++) {
-                    const p2 = particles[j];
-                    const dx = p.x - p2.x;
-                    const dy = p.y - p2.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
+                // Draw connections ONLY on Desktop. Mobile gets clean stars.
+                if (!isMobile) {
+                    for (let j = index + 1; j < particles.length; j++) {
+                        const dx = particles[index].x - particles[j].x;
+                        const dy = particles[index].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < 180) { // Longer connections
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(197, 160, 89, ${0.2 - distance / 1000})`; // More visible Gold lines
-                        ctx.lineWidth = 0.6;
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.stroke();
+                        if (distance < 150) {
+                            ctx.beginPath();
+                            ctx.lineWidth = 0.5;
+                            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 - distance / 1500})`;
+                            ctx.moveTo(particles[index].x, particles[index].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
                     }
-                }
-
-                const mdx = mouse.x - p.x;
-                const mdy = mouse.y - p.y;
-                const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
-                if (mDist < 250) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(197, 160, 89, ${0.4 - mDist / 1000})`; // Very strong mouse connection
-                    ctx.lineWidth = 1;
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(mouse.x, mouse.y);
-                    ctx.stroke();
-
-                    // Draw a small dot at mouse connection point on the particle
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.size * 1.5, 0, Math.PI * 2);
-                    ctx.fillStyle = '#C5A059';
-                    ctx.fill();
                 }
             });
 
-            requestAnimationFrame(animate);
-        };
+            animationFrameId = requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
 
         const handleResize = () => {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
+            // Force re-init to switch modes if crossing breakpoint
             init();
         };
 
@@ -182,39 +193,15 @@ export default function LiveBackground() {
             mouse.y = e.clientY;
         };
 
-        const handleTouchMove = (e: TouchEvent) => {
-            if (e.touches.length > 0) {
-                mouse.x = e.touches[0].clientX;
-                mouse.y = e.touches[0].clientY;
-            }
-        };
-
-        const handleTouchEnd = () => {
-            mouse.x = -1000;
-            mouse.y = -1000;
-        };
-
-        init();
-        animate();
-
         window.addEventListener('resize', handleResize);
         window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('touchmove', handleTouchMove, { passive: true });
-        window.addEventListener('touchend', handleTouchEnd);
 
         return () => {
             window.removeEventListener('resize', handleResize);
             window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('touchmove', handleTouchMove);
-            window.removeEventListener('touchend', handleTouchEnd);
+            cancelAnimationFrame(animationFrameId);
         };
     }, []);
 
-    return (
-        <canvas
-            ref={canvasRef}
-            className="fixed inset-0 z-0 pointer-events-none"
-            style={{ background: 'radial-gradient(circle at center, #0a0a0a, #000000)' }}
-        />
-    );
+    return <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none" />;
 }
