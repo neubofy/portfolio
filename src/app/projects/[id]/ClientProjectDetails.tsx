@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Navbar from "@/components/Navbar";
-import { useParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
@@ -73,8 +72,7 @@ function ImageCarousel({ images }: { images: string[] }) {
     );
 }
 
-export default function ProjectDetails() {
-    const { id } = useParams();
+export default function ClientProjectDetails({ id }: { id: string }) {
     const [project, setProject] = useState<Project | null>(null);
     const [loading, setLoading] = useState(true);
 
