@@ -20,10 +20,9 @@ export default function LiveBackground() {
         let animationFrameId: number;
         let mouse = { x: -1000, y: -1000 };
 
-        // Desktop Legacy Colors
-        const desktopColors = ['#C5A059', '#22d3ee', '#8b5cf6', '#f43f5e', '#10b981', '#fbbf24'];
-        // Mobile "Nebula" Colors (Deep Gold & Dark Space)
-        const mobileColors = ['#C5A059', '#1a1a1a', '#2c2c2c'];
+        // Liquid Mercury & Titanium Silver Palette
+        const desktopColors = ['#E2E8F0', '#CBD5E1', '#94A3B8', '#C5A059', '#64748B', '#F1F5F9'];
+        const mobileColors = ['#E2E8F0', '#1c1c1e', '#94A3B8'];
 
         const isMobile = width < 768;
 
@@ -39,25 +38,25 @@ export default function LiveBackground() {
             constructor(color: string) {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * (isMobile ? 0.2 : 0.4);
-                this.vy = (Math.random() - 0.5) * (isMobile ? 0.2 : 0.4);
-                this.size = isMobile ? Math.random() * 100 + 100 : Math.random() * 300 + 200;
+                this.vx = (Math.random() - 0.5) * (isMobile ? 0.3 : 0.6); // Liquid movement
+                this.vy = (Math.random() - 0.5) * (isMobile ? 0.3 : 0.6);
+                this.size = isMobile ? Math.random() * 200 + 150 : Math.random() * 400 + 300; // Massive fluid shapes
                 this.color = color;
             }
 
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-                if (this.x < -150 || this.x > width + 150) this.vx *= -1;
-                if (this.y < -150 || this.y > height + 150) this.vy *= -1;
+                if (this.x < -250 || this.x > width + 250) this.vx *= -1;
+                if (this.y < -250 || this.y > height + 250) this.vy *= -1;
             }
 
             draw() {
                 if (!ctx) return;
                 ctx.beginPath();
                 const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
-                // Significantly lower opacity on mobile for a 'Deep Space' look
-                const opacity = isMobile ? '1A' : '44'; // 1A is ~10% opacity, 44 is ~27%
+                // Ultra-soft blending for liquid effect
+                const opacity = isMobile ? '10' : '20';
                 gradient.addColorStop(0, this.color + opacity);
                 gradient.addColorStop(1, 'transparent');
                 ctx.fillStyle = gradient;
@@ -66,7 +65,7 @@ export default function LiveBackground() {
             }
         }
 
-        // Particles (The Mesh/Stars)
+        // Particles (Metallic Flakes/Stars)
         class Particle {
             x: number;
             y: number;
@@ -78,11 +77,10 @@ export default function LiveBackground() {
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                // Slower starry movement on mobile
-                this.vx = (Math.random() - 0.5) * (isMobile ? 0.1 : 0.5);
-                this.vy = (Math.random() - 0.5) * (isMobile ? 0.1 : 0.5);
+                this.vx = (Math.random() - 0.5) * (isMobile ? 0.1 : 0.3);
+                this.vy = (Math.random() - 0.5) * (isMobile ? 0.1 : 0.3);
                 this.size = Math.random() * 2 + 0.5;
-                this.baseAlpha = Math.random() * 0.5 + 0.2;
+                this.baseAlpha = Math.random() * 0.5 + 0.3; // Brighter flakes
             }
 
             update() {
@@ -113,12 +111,8 @@ export default function LiveBackground() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
 
-                // Mobile: Gold/White sparkles ("Starry Night"). Desktop: Standard white.
-                if (isMobile) {
-                    ctx.fillStyle = `rgba(197, 160, 89, ${this.baseAlpha})`; // Gold-ish
-                } else {
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-                }
+                // Silver/White Metallic Sparkle
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.baseAlpha})`;
                 ctx.fill();
             }
         }
@@ -127,16 +121,14 @@ export default function LiveBackground() {
             particles = [];
             blobs = [];
 
-            // Reduced particle count on mobile for 'Space' feel, not 'Dust' feel
-            const particleCount = isMobile ? 40 : 80;
+            const particleCount = isMobile ? 40 : 100; // Dense metallic dust
 
             for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle());
             }
 
             const colorsToUse = isMobile ? mobileColors : desktopColors;
-            // Fewer blobs on mobile to avoid mud
-            const blobCount = isMobile ? 3 : 6;
+            const blobCount = isMobile ? 4 : 8; // More overlaps for fluid feeling
 
             for (let i = 0; i < blobCount; i++) {
                 blobs.push(new Blob(colorsToUse[i % colorsToUse.length]));
@@ -203,5 +195,5 @@ export default function LiveBackground() {
         };
     }, []);
 
-    return <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none" />;
+    return <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none" style={{ background: '#1c1c1e' }} />;
 }

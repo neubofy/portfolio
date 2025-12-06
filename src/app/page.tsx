@@ -12,7 +12,7 @@ import Contact from "@/components/Contact";
 export default function Home() {
 
   return (
-    <main className="min-h-screen bg-[#030303] text-white">
+    <main className="min-h-screen bg-[#1c1c1e] text-white">
       <Navbar />
 
       <Hero />

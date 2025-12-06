@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Indie_Flower, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
+const indieFlower = Indie_Flower({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  weight: "400",
+  display: 'swap',
 });
 
 const geistMono = Geist_Mono({
@@ -36,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${indieFlower.variable} ${geistMono.variable} antialiased`}
       >
         <SmoothScroll>
           <LiveBackground />

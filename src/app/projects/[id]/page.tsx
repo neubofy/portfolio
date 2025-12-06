@@ -111,14 +111,14 @@ export default function ProjectDetails() {
     const headerImage = (project.thumbnails && project.thumbnails[0]) || project.image;
 
     return (
-        <main className="min-h-screen bg-[#030303] text-white">
+        <main className="min-h-screen text-white relative">
             <Navbar />
 
             {/* Header Image */}
             <section className="h-[50vh] relative flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 bg-[var(--gold)]/5 z-0" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#1c1c1e] z-0" />
                 {headerImage && (
-                    <div className="absolute inset-0 opacity-50 bg-black">
+                    <div className="absolute inset-0">
                         <img src={headerImage} alt={project.title} className="w-full h-full object-cover opacity-60 blur-sm" />
                     </div>
                 )}
@@ -126,7 +126,7 @@ export default function ProjectDetails() {
                     <motion.h1
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
-                        className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-500 mb-4"
+                        className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-500 mb-4 drop-shadow-lg"
                     >
                         {project.title}
                     </motion.h1>
@@ -134,7 +134,7 @@ export default function ProjectDetails() {
                         {project.tags.map((tag) => (
                             <span
                                 key={tag}
-                                className="px-4 py-1 bg-[var(--gold)]/10 border border-[var(--gold)]/20 text-[var(--gold-light)] text-sm rounded-full"
+                                className="px-4 py-1 bg-[var(--gold)]/10 border border-[var(--gold)]/20 text-[var(--gold-light)] text-sm rounded-full backdrop-blur-md"
                             >
                                 {tag}
                             </span>
@@ -144,42 +144,44 @@ export default function ProjectDetails() {
             </section>
 
             {/* Content */}
-            <section className="py-20 px-4 md:px-20 max-w-4xl mx-auto">
-                {project.sections ? (
-                    project.sections.map((section, idx) => (
-                        <div key={idx} className="mb-16">
-                            {section.title && <h2 className="text-3xl font-bold text-gray-200 mb-6 border-b border-[var(--gold)]/20 pb-2">{section.title}</h2>}
+            <section className="relative z-10 py-20 px-4 md:px-20 max-w-4xl mx-auto">
+                <div className="bg-[#1c1c1e]/60 backdrop-blur-2xl p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl">
+                    {project.sections ? (
+                        project.sections.map((section, idx) => (
+                            <div key={idx} className="mb-16">
+                                {section.title && <h2 className="text-3xl font-bold text-gray-200 mb-6 border-b border-[var(--gold)]/20 pb-2">{section.title}</h2>}
 
-                            <article className="prose prose-invert prose-lg prose-headings:text-[var(--gold)] prose-a:text-[var(--gold-light)] prose-strong:text-white marker:text-[var(--gold)] max-w-none">
-                                <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
-                                    p: ({ node, ...props }) => <div className="text-gray-300 leading-relaxed mb-6" {...props} />,
-                                }}>
-                                    {section.content}
-                                </ReactMarkdown>
-                            </article>
+                                <article className="prose prose-invert prose-lg prose-headings:text-[var(--gold)] prose-a:text-[var(--gold-light)] prose-strong:text-white marker:text-[var(--gold)] max-w-none">
+                                    <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
+                                        p: ({ node, ...props }) => <div className="text-gray-300 leading-relaxed mb-6" {...props} />,
+                                    }}>
+                                        {section.content}
+                                    </ReactMarkdown>
+                                </article>
 
-                            {section.images && section.images.length > 0 && (
-                                <ImageCarousel images={section.images} />
-                            )}
-                        </div>
-                    ))
-                ) : (
-                    <article className="prose prose-invert prose-lg prose-headings:text-[var(--gold)] prose-a:text-[var(--gold-light)] prose-strong:text-white marker:text-[var(--gold)] max-w-none">
-                        <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
-                            p: ({ node, ...props }) => <div className="text-gray-300 leading-relaxed mb-6" {...props} />,
-                        }}>
-                            {project.content || project.description}
-                        </ReactMarkdown>
-                    </article>
-                )}
-
-                <div className="mt-12 pt-12 border-t border-white/10 flex justify-between items-center">
-                    <a href="/" className="text-gray-400 hover:text-white transition-colors">← Back to Home</a>
-                    {project.liveLink && project.liveLink !== "#" && (
-                        <a href={project.liveLink} target="_blank" className="bg-[var(--gold)] text-black px-8 py-3 rounded-full font-bold hover:bg-[var(--gold-light)] transition-colors">
-                            Visit Live Site
-                        </a>
+                                {section.images && section.images.length > 0 && (
+                                    <ImageCarousel images={section.images} />
+                                )}
+                            </div>
+                        ))
+                    ) : (
+                        <article className="prose prose-invert prose-lg prose-headings:text-[var(--gold)] prose-a:text-[var(--gold-light)] prose-strong:text-white marker:text-[var(--gold)] max-w-none">
+                            <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
+                                p: ({ node, ...props }) => <div className="text-gray-300 leading-relaxed mb-6" {...props} />,
+                            }}>
+                                {project.content || project.description}
+                            </ReactMarkdown>
+                        </article>
                     )}
+
+                    <div className="mt-12 pt-12 border-t border-white/10 flex justify-between items-center">
+                        <a href="/" className="text-gray-400 hover:text-white transition-colors">← Back to Home</a>
+                        {project.liveLink && project.liveLink !== "#" && (
+                            <a href={project.liveLink} target="_blank" className="bg-[var(--gold)] text-black px-8 py-3 rounded-full font-bold hover:bg-[var(--gold-light)] transition-colors">
+                                Visit Live Site
+                            </a>
+                        )}
+                    </div>
                 </div>
             </section>
         </main>

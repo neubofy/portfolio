@@ -27,12 +27,14 @@
 }
 
 body {
-  background: var(--background);
-  background-image:
-    radial-gradient(circle at 50% 0%, rgba(197, 160, 89, 0.08) 0%, transparent 60%),
-    linear-gradient(to bottom, #050507 0%, #000000 100%);
+  background: radial-gradient(circle at 50% 30%, #303033 0%, #1c1c1e 70%);
+  /* Metallic Sheen */
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 1.25rem;
+  /* Increased for Caveat readability */
+  letter-spacing: 0.02em;
   overflow-x: hidden;
   min-height: 100vh;
 }
@@ -43,28 +45,28 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: #1c1c1e;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, var(--gold-dark), var(--gold));
+  background: linear-gradient(to bottom, #4b5563, #9ca3af);
+  /* Silver gradient scrollbar */
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--gold-light);
+  background: #d1d5db;
 }
 
 /* Utilities */
 .glass-panel {
-  background: rgba(15, 15, 18, 0.85);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.3),
-    0 10px 15px -3px rgba(0, 0, 0, 0.3),
-    inset 0 0 20px rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.03);
+  /* Transparent Crystalline Glass */
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* Silver/White border */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   color: var(--foreground);
 }
 

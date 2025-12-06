@@ -26,7 +26,7 @@ export default function Navbar() {
                     <div className="glass-panel px-6 py-3 rounded-full border border-[var(--glass-border)] backdrop-blur-xl shadow-lg flex items-center">
                         <button
                             onClick={scrollToTop}
-                            className="text-[var(--gold)] font-bold tracking-widest text-sm uppercase whitespace-nowrap hover:text-white transition-colors"
+                            className="text-[var(--gold)] font-bold text-2xl hover:text-white transition-colors"
                         >
                             Pawan Washudev
                         </button>
@@ -39,13 +39,13 @@ export default function Navbar() {
 
                         {/* Desktop Links */}
                         <div className="hidden md:flex items-center gap-8">
-                            <Link href="/" className="text-white hover:text-[var(--gold)] transition-colors text-xs font-bold tracking-widest uppercase">
+                            <Link href="/" className="text-white hover:text-[var(--gold)] transition-colors text-xl font-bold">
                                 Home
                             </Link>
-                            <Link href="/projects" className="text-white hover:text-[var(--gold)] transition-colors text-xs font-bold tracking-widest uppercase">
+                            <Link href="/projects" className="text-white hover:text-[var(--gold)] transition-colors text-xl font-bold">
                                 Projects
                             </Link>
-                            <Link href="#contact" className="text-white hover:text-[var(--gold)] transition-colors text-xs font-bold tracking-widest uppercase">
+                            <Link href="#contact" className="text-white hover:text-[var(--gold)] transition-colors text-xl font-bold">
                                 Contact
                             </Link>
                         </div>
