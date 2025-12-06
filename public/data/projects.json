@@ -1,0 +1,70 @@
+[
+    {
+        "id": "1",
+        "title": "AI Automation Suite",
+        "description": "A comprehensive tool leveraging Gen AI to automate repetitive web tasks.",
+        "tags": [
+            "Python",
+            "OpenAI",
+            "Selenium"
+        ],
+        "liveLink": "#",
+        "thumbnails": [
+            "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1000&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop"
+        ],
+        "sections": [
+            {
+                "title": "Project Overview",
+                "content": "This project leverages **Generative AI** to revolutionize how we interact with the web. It is designed to act as an intelligent agent that can perform tasks on your behalf.\n\n### Core Capabilities\n- **Auto-Login**: Securely manages credentials for multiple sites.\n- **Data Scraper**: Smart parsing of unstructured data using NLP.\n- **Report Generation**: Creates PDF summaries automatically.",
+                "images": []
+            },
+            {
+                "title": "Dashboard & Analytics",
+                "content": "The dashboard provides real-time insights into the automation tasks.",
+                "images": [
+                    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop"
+                ],
+                "imageStyle": "slider"
+            },
+            {
+                "title": "Dashboard & Analytics",
+                "content": "The **dashboard provides** real-time insights into the automation tasks.",
+                "images": [
+                    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop"
+                ],
+                "imageStyle": "slider"
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "title": "Midnight Portfolio",
+        "description": "Luxury portfolio website designed with Next.js and Tailwind CSS.",
+        "tags": [
+            "Next.js",
+            "Tailwind",
+            "Framer Motion"
+        ],
+        "liveLink": "#",
+        "thumbnails": [
+            "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1000&auto=format&fit=crop"
+        ],
+        "sections": [
+            {
+                "title": "Design Philosophy",
+                "content": "Using a **Dark Mode First** approach, we integrated *Gold Metallic* gradients to signify luxury and precision. The goal was to create something that stands out from the typical developer portfolio.",
+                "images": [
+                    "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop"
+                ]
+            },
+            {
+                "title": "Technical Innovation",
+                "content": "Powered by **Framer Motion**, every element on the page enters the stage with a calibrated delay, creating a sense of theatrical performance.",
+                "images": []
+            }
+        ]
+    }
+]
