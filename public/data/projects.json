@@ -1,69 +1,103 @@
 [
     {
         "id": "1",
-        "title": "AI Automation Suite",
-        "description": "A comprehensive tool leveraging Gen AI to automate repetitive web tasks.",
+        "title": "Neubofy",
+        "description": "The 'App Store' for the AI-First generation. A distribution ecosystem designed for student developers who 'Vibe Code'.",
         "tags": [
-            "Python",
-            "OpenAI",
-            "Selenium"
+            "Next.js",
+            "Supabase",
+            "Tailwind CSS",
+            "Distribution Infra"
         ],
-        "liveLink": "#",
-        "thumbnails": [
-            "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1000&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop"
+        "liveLink": "https://neubofy.bar",
+        "thumbnail": "/images/neubofy-thumbnail.png",
+        "heroImage": "/images/NEUBOFYsummry.png",
+        "gallery": [
+            "/images/NEUBOFYsummry.png",
+            "/images/neubofy_marketplace_grid_1765115469048.png",
+            "/images/neubofy_architecture_diagram_1765115521934.png"
         ],
         "sections": [
             {
-                "title": "Project Overview",
-                "content": "This project leverages **Generative AI** to revolutionize how we interact with the web. It is designed to act as an intelligent agent that can perform tasks on your behalf.\n\n### Core Capabilities\n- **Auto-Login**: Securely manages credentials for multiple sites.\n- **Data Scraper**: Smart parsing of unstructured data using NLP.\n- **Report Generation**: Creates PDF summaries automatically.",
+                "title": "The Manifesto",
+                "content": "### The Problem\nWe are witnessing the rise of the **'AI-First' Developer**—students who can build incredible tools at lightning speed using LLMs. However, they fail at one critical step: **Distribution**.\n\n### The Solution\n**Neubofy** bridges this gap. It serves as a specialized, curated marketplace for these high-signal tools. \n\n> *\"You focus on building. We handle the visibility, community trust, and distribution.\"*\n\nUnlike Product Hunt, which is noisy and generic, Neubofy is laser-focused on student-built AI utilities.",
                 "images": []
             },
             {
-                "title": "Dashboard & Analytics",
-                "content": "The dashboard provides real-time insights into the automation tasks.",
+                "title": "Engineering & Architecture",
+                "content": "Built for scale and velocity. The platform uses a modern stack to handle high-traffic launches.\n\n- **Frontend**: Next.js 14 (App Router) for SEO and performance.\n- **Backend**: Supabase for real-time auth and database capabilities.\n- **Styling**: Tailwind CSS with a custom 'Midnight Luxury' design system.\n\nWe utilized a **Grid Layout** system for maximum information density without clutter, ensuring that every tool gets its moment in the spotlight.",
                 "images": [
-                    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
-                    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop"
+                    "/images/neubofy_architecture_diagram_1765115521934.png",
+                    "/images/neubofy_marketplace_grid_1765115469048.png",
+                    "/images/NEUBOFYsummry.png"
                 ],
-                "imageStyle": "slider"
-            },
-            {
-                "title": "Dashboard & Analytics",
-                "content": "The **dashboard provides** real-time insights into the automation tasks.",
-                "images": [
-                    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
-                    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop"
-                ],
-                "imageStyle": "slider"
+                "imageStyle": "grid",
+                "links": [
+                    {
+                        "label": "View Architecture Diagram",
+                        "url": "#"
+                    },
+                    {
+                        "label": "Read Tech Blog",
+                        "url": "#"
+                    }
+                ]
             }
         ]
     },
     {
         "id": "2",
-        "title": "Midnight Portfolio",
-        "description": "Luxury portfolio website designed with Next.js and Tailwind CSS.",
+        "title": "Aimers Intelligence (StudyOS)",
+        "description": "A proprietary, closed-loop study lifecycle manager. Integrates Google Workspace with a 'Flow State' fluid UI.",
         "tags": [
-            "Next.js",
-            "Tailwind",
-            "Framer Motion"
+            "Google Apps Script",
+            "React",
+            "Algorithms",
+            "Automation"
         ],
-        "liveLink": "#",
-        "thumbnails": [
-            "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1000&auto=format&fit=crop"
+        "liveLink": "https://aimers.neubofy.bar",
+        "thumbnail": "/images/aimers-ui.png",
+        "heroImage": "/images/aimers-dashboard.png",
+        "gallery": [
+            "/images/aimers-dashboard.png",
+            "/images/aimers-showcase.png",
+            "/images/aimers-ui.png"
         ],
         "sections": [
             {
-                "title": "Design Philosophy",
-                "content": "Using a **Dark Mode First** approach, we integrated *Gold Metallic* gradients to signify luxury and precision. The goal was to create something that stands out from the typical developer portfolio.",
-                "images": [
-                    "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop"
+                "title": "The 'Second Brain' Ecosystem",
+                "content": "This isn't just a timer. It's a **Study Operating System** that lives where I work.\n\n### The Workflow\n1. **Planning**: Every night, I write my diary and next-day plan in a **Google Doc**.\n2. **Sync**: At **11:45 PM**, a custom script runs, parsing the doc and syncing tasks to my Calendar.\n3. **Execution**: The next day, the `aimers.neubofy.bar` dashboard reads these Calendar events to set my daily targets.",
+                "images": [],
+                "links": [
+                    {
+                        "label": "View Workflow Schematic",
+                        "url": "#"
+                    }
                 ]
             },
             {
-                "title": "Technical Innovation",
-                "content": "Powered by **Framer Motion**, every element on the page enters the stage with a calibrated delay, creating a sense of theatrical performance.",
-                "images": []
+                "title": "The Liquid UI & Flow State",
+                "content": "The dashboard features a **Dynamic Water-Filling Animation**. \n\n- It acts as a hybrid **Stopwatch/Timer**.\n- As I study, the water rises to match the percentage of my daily target achieved.\n- This visual feedback loop is directly synced with the Google Calendar events, adjusting in real-time if my schedule changes.",
+                "images": [
+                    "/images/aimers-ui.png",
+                    "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?q=80&w=1000&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop"
+                ],
+                "imageStyle": "slider"
+            },
+            {
+                "title": "AI-Powered Accountability",
+                "content": "I built a **Podcast Generator** pipeline. \n\nThe system reads my daily reflection Doc and execution data, then uses GenAI to synthesize a **Podcast-Style Audio Summary** sent to my email each morning. \n\n> *It acts as a brutally honest accountability partner, 'roasting' me if my 'Planned vs. Actual' algorithm detects slack.*",
+                "images": [
+                    "/images/aimers-ui.png"
+                ],
+                "imageStyle": "grid",
+                "links": [
+                    {
+                        "label": "Listen to Bio-Roast",
+                        "url": "#"
+                    }
+                ]
             }
         ]
     }

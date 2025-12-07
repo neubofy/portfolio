@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FaArrowRight } from 'react-icons/fa';
 
 interface Project {
@@ -8,21 +7,13 @@ interface Project {
     description: string;
     tags: string[];
     liveLink?: string;
-    thumbnails?: string[];
-    image?: string; // Fallback
+    thumbnail?: string;
+    gallery?: string[];
 }
 
 export default function ProjectCard({ project, index }: { project: Project; index: number }) {
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const images = project.thumbnails && project.thumbnails.length > 0 ? project.thumbnails : (project.image ? [project.image] : []);
-
-    useEffect(() => {
-        if (images.length <= 1) return;
-        const interval = setInterval(() => {
-            setCurrentImageIndex((prev) => (prev + 1) % images.length);
-        }, 3000); // Change every 3 seconds
-        return () => clearInterval(interval);
-    }, [images.length]);
+    // Strictly use the thumbnail for the card view
+    const image = project.thumbnail || "";
 
     return (
         <motion.div
@@ -35,38 +26,20 @@ export default function ProjectCard({ project, index }: { project: Project; inde
                 href={`/projects/${project.id}`}
                 className="flex flex-col h-full glass-panel p-5 rounded-2xl hover:border-[var(--gold)] transition-all duration-300 group hover:shadow-[0_0_30px_rgba(197,160,89,0.1)] relative overflow-hidden"
             >
-                {/* Image Area */}
-                <div className="h-48 w-full bg-gray-800 rounded-xl mb-5 overflow-hidden relative">
-                    {images.length > 0 ? (
-                        <AnimatePresence mode="wait">
-                            <motion.img
-                                key={currentImageIndex}
-                                src={images[currentImageIndex]}
-                                alt={project.title}
-                                initial={{ opacity: 0, scale: 1.1 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.5 }}
-                                className="absolute inset-0 w-full h-full object-cover"
-                            />
-                        </AnimatePresence>
+                {/* Image Area - Single Thumbnail Only */}
+                <div className="h-48 w-full bg-gray-800 rounded-xl mb-5 overflow-hidden relative group-hover:scale-[1.02] transition-transform duration-500">
+                    {image ? (
+                        <img
+                            src={image}
+                            alt={project.title}
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
                             <span className="text-4xl font-bold opacity-20">{project.title[0]}</span>
                         </div>
                     )}
-
-                    {/* Slideshow Indicator */}
-                    {images.length > 1 && (
-                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
-                            {images.map((_, idx) => (
-                                <div
-                                    key={idx}
-                                    className={`h-1 rounded-full transition-all duration-300 ${idx === currentImageIndex ? 'w-4 bg-[var(--gold)]' : 'w-1 bg-white/50'}`}
-                                />
-                            ))}
-                        </div>
-                    )}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
                 </div>
 
                 {/* Content */}

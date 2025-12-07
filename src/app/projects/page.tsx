@@ -10,9 +10,10 @@ interface Project {
     title: string;
     description: string;
     tags: string[];
+
     link: string;
-    image?: string;
-    thumbnails?: string[];
+    thumbnail?: string;
+    heroImage?: string;
     content?: string;
 }
 

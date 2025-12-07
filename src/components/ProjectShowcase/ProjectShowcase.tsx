@@ -10,15 +10,15 @@ interface Project {
     description: string;
     tags: string[];
     liveLink?: string;
-    thumbnails?: string[];
-    image?: string;
+    thumbnail?: string;
+    heroImage?: string;
 }
 
 const ProjectPanel = ({ project }: { project: Project }) => {
-    const img = (project.thumbnails && project.thumbnails[0]) || project.image || "";
+    const img = project.thumbnail || "";
 
     return (
-        <div className="relative h-[400px] w-[350px] md:h-[500px] md:w-[700px] flex-shrink-0 group overflow-hidden rounded-3xl bg-neutral-900 border border-white/5 transition-all duration-500 hover:border-[var(--gold)]/30">
+        <div className="relative h-[50vh] w-[85vw] md:h-[80vh] md:w-[55vw] max-h-[900px] flex-shrink-0 group overflow-hidden rounded-3xl bg-neutral-900 border border-white/5 transition-all duration-500 hover:border-[var(--gold)]/30">
             {/* Background Image with Darkening */}
             <div className="absolute inset-0">
                 {img ? (
@@ -79,6 +79,7 @@ export default function ProjectShowcase() {
     const targetRef = useRef<HTMLDivElement | null>(null);
     const { scrollYProgress } = useScroll({
         target: targetRef,
+        offset: ["start start", "end end"]
     });
 
     const [projects, setProjects] = useState<Project[]>([]);
@@ -91,34 +92,46 @@ export default function ProjectShowcase() {
     }, []);
 
     // Transform scroll progress to horizontal movement
-    // Transform scroll progress to horizontal movement
-    // Increased range to ensure all 3 items are viewed
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-70%"]);
+    // Using calc(-100% + 100vw) ensures we scroll exactly to the end of the content
+    const x = useTransform(scrollYProgress, [0, 1], ["0%", "calc(-100% + 100vw)"]);
 
     return (
-        <section id="projects" ref={targetRef} className="relative h-[150vh] bg-[#050507]">
+        <section id="projects" ref={targetRef} className="relative h-[200vh] bg-[#050507]">
             {/* Sticky Container with Constrained Width */}
-            <div className="sticky top-0 h-screen flex items-center overflow-hidden max-w-7xl mx-auto border-x border-white/5 bg-[#050507]">
+            <div className="sticky top-0 h-screen flex items-center overflow-hidden bg-[#050507]">
 
                 {/* Title Section (Static) */}
-                <div className="absolute top-10 left-4 md:left-20 z-10 p-4">
-                    <h2 className="text-5xl md:text-7xl font-bold text-white mb-2">
+                <div className="absolute top-8 left-4 md:left-20 z-10 p-4 pointer-events-none">
+                    <h2 className="text-4xl md:text-6xl font-bold text-white mb-2">
                         Selected <span className="text-gradient-gold">Works</span>
                     </h2>
-                    <p className="text-gray-400 text-lg max-w-md">
+                    <p className="text-gray-400 text-sm md:text-base max-w-md">
                         A curated top 3 collection.
                     </p>
                 </div>
 
                 {/* Horizontal Scrolling Track */}
-                <motion.div style={{ x }} className="flex gap-8 md:gap-16 pl-[5vw]">
+                <motion.div style={{ x }} className="flex gap-8 md:gap-16 pl-[5vw] pr-[5vw] w-max items-center">
                     {/* Spacer for title */}
-                    <div className="w-[80vw] md:w-[35vw] flex-shrink-0" />
+                    <div className="w-[85vw] md:w-[35vw] flex-shrink-0" />
 
                     {projects.slice(0, 3).map((project) => (
                         <ProjectPanel key={project.id} project={project} />
                     ))}
                 </motion.div>
+
+                {/* Centered CTA */}
+                <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20">
+                    <a
+                        href="/projects"
+                        className="group flex items-center gap-3 px-6 py-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-full hover:bg-[var(--gold)]/10 hover:border-[var(--gold)]/50 transition-all duration-300"
+                    >
+                        <span className="text-white text-sm font-medium tracking-wide group-hover:text-[var(--gold)] transition-colors">
+                            View Complete Gallery
+                        </span>
+                        <FaArrowRight className="text-white/50 text-xs group-hover:text-[var(--gold)] group-hover:translate-x-1 transition-all" />
+                    </a>
+                </div>
 
                 {/* Progress Bar */}
                 <motion.div

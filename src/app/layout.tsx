@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Indie_Flower, Geist_Mono } from "next/font/google";
+import { Outfit, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const indieFlower = Indie_Flower({
-  variable: "--font-geist-sans",
+const outfit = Outfit({
+  variable: "--font-geist-sans", // Keeping variable name to avoid breaking globals.css
   subsets: ["latin"],
-  weight: "400",
   display: 'swap',
 });
 
@@ -37,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${indieFlower.variable} ${geistMono.variable} antialiased`}
+        className={`${outfit.variable} ${geistMono.variable} antialiased`}
       >
         <Preloader />
         <LiveBackground />
