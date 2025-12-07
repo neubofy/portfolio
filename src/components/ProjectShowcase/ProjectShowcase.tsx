@@ -18,17 +18,17 @@ const ProjectPanel = ({ project }: { project: Project }) => {
     const img = project.thumbnail || "";
 
     return (
-        <div className="relative h-[50vh] w-[85vw] md:h-[80vh] md:w-[55vw] max-h-[900px] flex-shrink-0 group overflow-hidden rounded-3xl bg-neutral-900 border border-white/5 transition-all duration-500 hover:border-[var(--gold)]/30">
+        <div className="relative w-[85vw] md:w-[55vw] h-auto max-h-[90vh] flex-shrink-0 group overflow-hidden rounded-3xl bg-neutral-900 border border-white/5 transition-all duration-500 hover:border-[var(--gold)]/30">
             {/* Background Image with Darkening */}
-            <div className="absolute inset-0">
+            <div className="relative w-full h-full">
                 {img ? (
                     <img
                         src={img}
                         alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-75 group-hover:brightness-50"
+                        className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105" // Removed filter brightness for clarity
                     />
                 ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] to-black" />
+                    <div className="w-full h-64 bg-gradient-to-br from-[#1a1a1a] to-black" />
                 )}
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
