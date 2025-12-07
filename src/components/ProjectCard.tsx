@@ -26,16 +26,16 @@ export default function ProjectCard({ project, index }: { project: Project; inde
                 href={`/projects/${project.id}`}
                 className="flex flex-col h-full glass-panel p-5 rounded-2xl hover:border-[var(--gold)] transition-all duration-300 group hover:shadow-[0_0_30px_rgba(197,160,89,0.1)] relative overflow-hidden"
             >
-                {/* Image Area - Single Thumbnail Only */}
-                <div className="h-48 w-full bg-gray-800 rounded-xl mb-5 overflow-hidden relative group-hover:scale-[1.02] transition-transform duration-500">
+                {/* Image Area - Single Thumbnail Only, No Cropping */}
+                <div className="w-full h-auto bg-gray-800 rounded-xl mb-5 overflow-hidden relative group-hover:scale-[1.02] transition-transform duration-500">
                     {image ? (
                         <img
                             src={image}
                             alt={project.title}
-                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            className="w-full h-auto object-contain"
                         />
                     ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
+                        <div className="w-full h-48 bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
                             <span className="text-4xl font-bold opacity-20">{project.title[0]}</span>
                         </div>
                     )}

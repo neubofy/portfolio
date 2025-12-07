@@ -67,6 +67,7 @@ function MediaItem({ src, className, autoPlay = true }: { src: string; className
 }
 
 // Top Gallery Component - Shows 3 items, slides if more
+// Mobile Optimized: Horizontal Scroll Snap
 function TopGallery({ items }: { items: string[] }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const visibleCount = 3;
@@ -76,7 +77,7 @@ function TopGallery({ items }: { items: string[] }) {
         if (!shouldSlide) return;
         const interval = setInterval(() => {
             setCurrentIndex((prev) => (prev + 1) % items.length);
-        }, 3000); // Faster slide for better dynamism
+        }, 3000);
         return () => clearInterval(interval);
     }, [shouldSlide, items.length]);
 
@@ -96,7 +97,9 @@ function TopGallery({ items }: { items: string[] }) {
                     <div className="h-px bg-white/10 flex-1" />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-[50vh] md:h-[35vh]">
+                {/* Responsive Gallery Container: Mobile Slider / Desktop Grid */}
+                {/* Mobile: overflow-x-auto with snap-x. Desktop: grid */}
+                <div className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible snap-x md:snap-none pb-8 md:pb-0 no-scrollbar touch-pan-x">
                     <AnimatePresence mode="popLayout">
                         {displayItems.map((item, idx) => (
                             <motion.div
@@ -106,10 +109,10 @@ function TopGallery({ items }: { items: string[] }) {
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.95 }}
                                 transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
-                                className="relative rounded-xl overflow-hidden shadow-2xl border border-white/10 group h-full bg-[#0a0a0a]"
+                                className="relative rounded-xl overflow-hidden shadow-2xl border border-white/10 group bg-[#0a0a0a] min-w-[85vw] md:min-w-0 flex-shrink-0 snap-center"
                             >
-                                <MediaItem src={item} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                                <MediaItem src={item} className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105" />
+                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />
                             </motion.div>
                         ))}
                     </AnimatePresence>
@@ -123,13 +126,13 @@ function TopGallery({ items }: { items: string[] }) {
 function SectionMediaGallery({ images, style }: { images?: string[], style?: 'slider' | 'grid' }) {
     if (!images || images.length === 0) return null;
 
-    // Grid implementation for sections
+    // Grid implementation for sections - Responsive
     if (style === 'grid' || images.length <= 1) {
         return (
             <div className={`my-12 grid grid-cols-1 ${images.length >= 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-6`}>
                 {images.map((img, idx) => (
-                    <div key={idx} className="rounded-xl overflow-hidden border border-white/10 aspect-video shadow-lg group relative">
-                        <MediaItem src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <div key={idx} className="rounded-xl overflow-hidden border border-white/10 shadow-lg group relative">
+                        <MediaItem src={img} className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105" />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none" />
                     </div>
                 ))}
@@ -141,8 +144,8 @@ function SectionMediaGallery({ images, style }: { images?: string[], style?: 'sl
     return (
         <div className="my-12 flex gap-6 overflow-x-auto snap-x pb-6 no-scrollbar">
             {images.map((img, idx) => (
-                <div key={idx} className="min-w-[85%] md:min-w-[45%] aspect-video rounded-xl overflow-hidden border border-white/10 snap-center shrink-0 shadow-lg">
-                    <MediaItem src={img} className="w-full h-full object-cover" />
+                <div key={idx} className="min-w-[85%] md:min-w-[45%] rounded-xl overflow-hidden border border-white/10 snap-center shrink-0 shadow-lg">
+                    <MediaItem src={img} className="w-full h-auto object-contain" />
                 </div>
             ))}
         </div>
