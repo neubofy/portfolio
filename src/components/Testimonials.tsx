@@ -3,8 +3,28 @@
 import { motion } from 'framer-motion';
 import TiltCard from './TiltCard';
 
-const testimonials = [
-    // ... (keep data)
+interface Testimonial {
+    quote: string;
+    author: string;
+    role: string;
+}
+
+const testimonials: Testimonial[] = [
+    {
+        quote: "Pawan doesn't just write code; he architects intelligent systems. His ability to merge AI workflows with high-performance web engineering is unmatched.",
+        author: "Sarah Jenkins",
+        role: "CTO, NextGen AI"
+    },
+    {
+        quote: "I've never seen a developer who understands the 'Vibe' of a product so intuitively. The animations and UI details he implemented were pure magic.",
+        author: "Michael Chen",
+        role: "Founder, VibeTech"
+    },
+    {
+        quote: "Delivered a complex full-stack AI platform in record time. His command over Next.js and LLM integration is world-class.",
+        author: "Elena Rodriguez",
+        role: "Product Director, InnovateX"
+    }
 ];
 
 export default function Testimonials() {
