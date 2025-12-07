@@ -18,9 +18,7 @@ export const metadata: Metadata = {
   title: "Pawan Washudev | AI Expert & Developer",
   description: "Portfolio of Pawan Washudev, an AI Expert and Web Engineer crafting intelligent digital ecosystems.",
   icons: {
-    icon: [
-      { url: 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>', type: 'image/svg+xml' },
-    ],
+    icon: '/favicon.ico',
   },
 };
 
@@ -28,6 +26,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import CustomCursor from "@/components/CustomCursor";
 import NoiseOverlay from "@/components/NoiseOverlay";
 import LiveBackground from "@/components/LiveBackground";
+import Preloader from "@/components/Preloader";
 import FloatingActions from "@/components/FloatingActions";
 
 export default function RootLayout({
@@ -40,10 +39,11 @@ export default function RootLayout({
       <body
         className={`${indieFlower.variable} ${geistMono.variable} antialiased`}
       >
+        <Preloader />
+        <LiveBackground />
+        <CustomCursor />
+        <NoiseOverlay />
         <SmoothScroll>
-          <LiveBackground />
-          <CustomCursor />
-          <NoiseOverlay />
           <FloatingActions />
           {children}
         </SmoothScroll>

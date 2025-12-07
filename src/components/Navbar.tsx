@@ -23,7 +23,10 @@ export default function Navbar() {
             >
                 {/* 1. Identity Pill (Left) */}
                 <div className="pointer-events-auto">
-                    <div className="glass-panel px-6 py-3 rounded-full border border-[var(--glass-border)] backdrop-blur-xl shadow-lg flex items-center">
+                    <div className="glass-panel px-6 py-2 rounded-full border border-[var(--glass-border)] backdrop-blur-xl shadow-lg flex items-center gap-3">
+                        <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-[var(--gold)]">
+                            <img src="/profile.jpg" alt="Profile" className="w-full h-full object-cover" />
+                        </div>
                         <button
                             onClick={scrollToTop}
                             className="text-[var(--gold)] font-bold text-2xl hover:text-white transition-colors"

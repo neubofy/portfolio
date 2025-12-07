@@ -91,13 +91,14 @@ export default function ProjectShowcase() {
     }, []);
 
     // Transform scroll progress to horizontal movement
-    // 1% start width padding, move to -((total width) - viewport width)
-    const x = useTransform(scrollYProgress, [0, 1], ["2%", "-75%"]);
+    // Transform scroll progress to horizontal movement
+    // Reduced range for fewer items (Top 3)
+    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
 
     return (
-        <section id="projects" ref={targetRef} className="relative h-[300vh] bg-[#050507]">
-            {/* Sticky Container */}
-            <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+        <section id="projects" ref={targetRef} className="relative h-[200vh] bg-[#050507]">
+            {/* Sticky Container with Constrained Width */}
+            <div className="sticky top-0 h-screen flex items-center overflow-hidden max-w-7xl mx-auto border-x border-white/5 bg-[#050507]">
 
                 {/* Title Section (Static) */}
                 <div className="absolute top-10 left-4 md:left-20 z-10 p-4">
@@ -105,18 +106,16 @@ export default function ProjectShowcase() {
                         Selected <span className="text-gradient-gold">Works</span>
                     </h2>
                     <p className="text-gray-400 text-lg max-w-md">
-                        A curated horizontal journey through my most significant digital creations. Scroll to explore.
+                        A curated top 3 collection.
                     </p>
                 </div>
 
                 {/* Horizontal Scrolling Track */}
                 <motion.div style={{ x }} className="flex gap-8 md:gap-16 pl-[5vw]">
-                    {/* Empty invisible spacer so the first project doesn't overlap text instantly? 
-                       Actually, let's just margin-left the list. 
-                   */}
-                    <div className="w-[80vw] md:w-[40vw] flex-shrink-0" /> {/* Spacer for title */}
+                    {/* Spacer for title */}
+                    <div className="w-[80vw] md:w-[35vw] flex-shrink-0" />
 
-                    {projects.map((project) => (
+                    {projects.slice(0, 3).map((project) => (
                         <ProjectPanel key={project.id} project={project} />
                     ))}
                 </motion.div>
@@ -124,7 +123,7 @@ export default function ProjectShowcase() {
                 {/* Progress Bar */}
                 <motion.div
                     style={{ scaleX: scrollYProgress }}
-                    className="absolute bottom-0 left-0 right-0 h-2 bg-[var(--gold)] origin-left"
+                    className="absolute bottom-0 left-0 right-0 h-1 bg-[var(--gold)] origin-left"
                 />
             </div>
         </section>

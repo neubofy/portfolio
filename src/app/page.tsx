@@ -8,11 +8,14 @@ import ScrollingMarquee from "@/components/ScrollingMarquee";
 import Services from "@/components/Services";
 import InfoGrid from "@/components/InfoGrid";
 import Contact from "@/components/Contact";
+import Process from "@/components/Process";
+import Testimonials from "@/components/Testimonials";
+import CallToAction from "@/components/CallToAction";
 
 export default function Home() {
 
   return (
-    <main className="min-h-screen bg-[#1c1c1e] text-white">
+    <main className="min-h-screen text-white overflow-hidden selection:bg-[var(--gold)] selection:text-black">
       <Navbar />
 
       <Hero />
@@ -21,15 +24,18 @@ export default function Home() {
       <BentoGrid />
 
       <Services />
+      <Process />
 
       <InfoGrid />
 
       <ProjectShowcase />
+      <Testimonials />
+      <CallToAction />
 
       <Contact />
 
       <footer className="py-8 text-center text-gray-600 text-sm border-t border-white/5">
-        © {new Date().getFullYear()} Pawan Washudev. All rights reserved. | Developed by Pawan Washudev
+        © {new Date().getFullYear()} Pawan Washudev. Architecting the Future of Intelligence.
       </footer>
     </main>
   );

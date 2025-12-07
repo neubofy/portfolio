@@ -27,9 +27,8 @@
 }
 
 body {
-  background: radial-gradient(circle at 50% 30%, #303033 0%, #1c1c1e 70%);
-  /* Metallic Sheen */
-  background-attachment: fixed;
+  background: transparent;
+  /* LiveBackground handles the visual layer */
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   font-size: 1.25rem;
@@ -60,14 +59,49 @@ body {
 
 /* Utilities */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.03);
-  /* Transparent Crystalline Glass */
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  /* Silver/White border */
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  /* Dark Luxe Glass for Clarity */
+  background: rgba(8, 8, 10, 0.6);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   color: var(--foreground);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+/* Liquid Glass Hover Effect */
+.glass-panel:hover {
+  background: rgba(5, 5, 5, 0.85); /* Solid dark for text pop */
+  border-color: rgba(197, 160, 89, 0.5); /* Gold Edge */
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(197, 160, 89, 0.1);
+  transform: translateY(-6px);
+}
+
+/* The 'Liquid' Shine Swipe */
+.glass-panel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -200%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(115deg,
+      transparent 0%,
+      transparent 40%,
+      rgba(255, 255, 255, 0.15) 50%,
+      transparent 60%,
+      transparent 100%);
+  transform: skewX(-20deg);
+  transition: none;
+}
+
+.glass-panel:hover::after {
+  left: 200%;
+  transition: 1s ease-in-out;
 }
 
 .text-gradient-gold {
