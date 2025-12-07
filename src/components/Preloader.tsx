@@ -7,7 +7,7 @@ const terminalLines = [
     "> INITIALIZING_NEURAL_UPLINK...",
     "> CONNECTING_TO_MAINFRAME...",
     "> LOADING_ASSETS: [██████████] 100%",
-    "> ACCESS_GRANTED: WELCOME_USER"
+    "> ACCESS_GRANTED: WELCOME_TO_MY_UNIVERSE"
 ];
 
 export default function Preloader() {
