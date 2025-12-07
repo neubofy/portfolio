@@ -18,7 +18,7 @@ const ProjectPanel = ({ project }: { project: Project }) => {
     const img = (project.thumbnails && project.thumbnails[0]) || project.image || "";
 
     return (
-        <div className="relative h-[400px] w-[350px] md:h-[600px] md:w-[800px] flex-shrink-0 group overflow-hidden rounded-3xl bg-neutral-900 border border-white/5 transition-all duration-500 hover:border-[var(--gold)]/30">
+        <div className="relative h-[400px] w-[350px] md:h-[500px] md:w-[700px] flex-shrink-0 group overflow-hidden rounded-3xl bg-neutral-900 border border-white/5 transition-all duration-500 hover:border-[var(--gold)]/30">
             {/* Background Image with Darkening */}
             <div className="absolute inset-0">
                 {img ? (
@@ -92,11 +92,11 @@ export default function ProjectShowcase() {
 
     // Transform scroll progress to horizontal movement
     // Transform scroll progress to horizontal movement
-    // Reduced range for fewer items (Top 3)
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
+    // Increased range to ensure all 3 items are viewed
+    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-70%"]);
 
     return (
-        <section id="projects" ref={targetRef} className="relative h-[200vh] bg-[#050507]">
+        <section id="projects" ref={targetRef} className="relative h-[150vh] bg-[#050507]">
             {/* Sticky Container with Constrained Width */}
             <div className="sticky top-0 h-screen flex items-center overflow-hidden max-w-7xl mx-auto border-x border-white/5 bg-[#050507]">
 
