@@ -10,7 +10,7 @@ export default function Contact() {
             icon: <FaEnvelope />,
             label: "Initialize Protocol",
             subLabel: "Email Communication",
-            action: "mailto:pawanwashudev@neubofy.bar",
+            action: "mailto:pawanwashudev@gmail.com",
             color: "text-[var(--gold)]",
             border: "group-hover:border-[var(--gold)]",
             bg: "group-hover:bg-[var(--gold)]/10"

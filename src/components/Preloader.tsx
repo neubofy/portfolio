@@ -3,40 +3,35 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const words = ["Innovation", "Precision", "Intelligence", "Pawan Washudev"];
+const terminalLines = [
+    "> INITIALIZING_NEURAL_UPLINK...",
+    "> CONNECTING_TO_MAINFRAME...",
+    "> LOADING_ASSETS: [██████████] 100%",
+    "> ACCESS_GRANTED: WELCOME_USER"
+];
 
 export default function Preloader() {
-    const [index, setIndex] = useState(0);
-    const [counter, setCounter] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+    const [terminalIndex, setTerminalIndex] = useState(0);
 
+    // Initial load timer
     useEffect(() => {
-        // Counter Animation
-        const interval = setInterval(() => {
-            setCounter((prev) => {
-                if (prev < 100) return prev + 1;
-                clearInterval(interval);
-                return 100;
-            });
-        }, 20); // 20ms * 100 = 2000ms total duration
-
-        // Word Cycle
-        const wordInterval = setInterval(() => {
-            setIndex((prev) => {
-                if (prev < words.length - 1) return prev + 1;
+        // Pseudo-terminal typing effect
+        const lineTimer = setInterval(() => {
+            setTerminalIndex((prev) => {
+                if (prev < terminalLines.length) return prev + 1;
+                clearInterval(lineTimer);
                 return prev;
             });
-        }, 400);
+        }, 800);
 
-        // Exit Trigger
-        const timeout = setTimeout(() => {
+        const exitTimer = setTimeout(() => {
             setIsLoading(false);
-        }, 2500);
+        }, 4000); // 4 seconds total duration
 
         return () => {
-            clearInterval(interval);
-            clearInterval(wordInterval);
-            clearTimeout(timeout);
+            clearInterval(lineTimer);
+            clearTimeout(exitTimer);
         };
     }, []);
 
@@ -44,44 +39,89 @@ export default function Preloader() {
         <AnimatePresence mode="wait">
             {isLoading && (
                 <motion.div
-                    exit={{ y: '-100%' }}
-                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                    className="fixed inset-0 z-[99999] flex items-center justify-center bg-[#1c1c1e] text-white overflow-hidden"
+                    exit={{ opacity: 0, scale: 1.1, filter: "blur(20px)" }}
+                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                    className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#050507] text-white overflow-hidden cursor-wait"
                 >
-                    {/* Background Noise for Texture */}
-                    <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-noise"></div>
+                    {/* Background Grid & Scanlines */}
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(212,175,55,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(212,175,55,0.03)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+                    <div className="absolute inset-0 bg-black/60 pointer-events-none" />
 
-                    <div className="relative flex flex-col items-center justify-center w-full h-full">
+                    {/* Main Content Container */}
+                    <div className="relative z-10 flex flex-col items-center gap-10">
 
-                        {/* Central Word Reveal */}
-                        <div className="h-20 overflow-hidden text-center flex items-center justify-center">
-                            <motion.p
-                                key={index}
-                                initial={{ y: "100%", opacity: 0 }}
-                                animate={{ y: "0%", opacity: 1 }}
-                                exit={{ y: "-100%", opacity: 0 }}
-                                transition={{ duration: 0.4, ease: "backOut" }}
-                                className="text-4xl md:text-6xl font-bold text-white tracking-tight"
-                            >
-                                {words[index]}
-                            </motion.p>
-                        </div>
-
-                        {/* Counter (Bottom Right) */}
-                        <div className="absolute bottom-10 right-10 text-9xl font-bold text-[var(--gold)] opacity-20 select-none">
-                            {counter}%
-                        </div>
-
-                        {/* Loading Line */}
-                        <div className="absolute bottom-0 left-0 w-full h-1 bg-white/10">
+                        {/* 1. THE LOGO - User's Photo with Cybernetic Rings */}
+                        <div className="relative w-32 h-32 md:w-40 md:h-40">
+                            {/* Spinning Cyber Rings */}
                             <motion.div
-                                className="h-full bg-[var(--gold)]"
-                                initial={{ width: "0%" }}
-                                animate={{ width: "100%" }}
-                                transition={{ duration: 2.2, ease: "easeInOut" }}
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                                className="absolute -inset-4 rounded-full border border-dashed border-[var(--gold)]/30"
+                            />
+                            <motion.div
+                                animate={{ rotate: -360 }}
+                                transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+                                className="absolute -inset-2 rounded-full border border-[var(--gold)]/20 border-t-transparent border-l-transparent"
+                            />
+
+                            {/* The Photo Logo */}
+                            <motion.div
+                                initial={{ scale: 0.8, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{ duration: 0.5 }}
+                                className="w-full h-full rounded-full overflow-hidden border-2 border-[var(--gold)] shadow-[0_0_30px_rgba(212,175,55,0.3)] relative z-20"
+                            >
+                                <img
+                                    src="/images/myphoto.jpg"
+                                    alt="Pawan Washudev"
+                                    className="w-full h-full object-cover"
+                                />
+                            </motion.div>
+
+                            {/* Ping Effect */}
+                            <motion.div
+                                animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
+                                transition={{ duration: 2, repeat: Infinity }}
+                                className="absolute inset-0 rounded-full bg-[var(--gold)]/20 z-10"
                             />
                         </div>
+
+                        {/* 2. TERMINAL COMMANDS */}
+                        <div className="font-mono text-xs md:text-sm text-[var(--gold)] bg-black/50 p-6 rounded-lg border border-white/10 backdrop-blur-md w-[300px] md:w-[400px] min-h-[140px] shadow-2xl relative overflow-hidden">
+                            {/* Scanline overlay */}
+                            <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[size:100%_4px] opacity-20 pointer-events-none" />
+
+                            <div className="flex flex-col gap-2">
+                                {terminalLines.slice(0, terminalIndex + 1).map((line, i) => (
+                                    <motion.div
+                                        key={i}
+                                        initial={{ opacity: 0, x: -10 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        className="flex items-center gap-2"
+                                    >
+                                        <span className="text-green-500">➜</span>
+                                        <span className={i === terminalLines.length - 1 ? "animate-pulse" : "opacity-70"}>
+                                            {line}
+                                        </span>
+                                    </motion.div>
+                                ))}
+                                {/* Blinking Cursor */}
+                                <motion.span
+                                    animate={{ opacity: [0, 1, 0] }}
+                                    transition={{ duration: 0.8, repeat: Infinity }}
+                                    className="inline-block w-2 h-4 bg-[var(--gold)] align-middle ml-1"
+                                />
+                            </div>
+                        </div>
                     </div>
+
+                    {/* Bottom System Status */}
+                    <div className="absolute bottom-10 left-0 w-full text-center">
+                        <p className="text-[10px] text-white/30 uppercase tracking-[0.4em] font-mono">
+                            System_Status: <span className="text-green-400">Online</span>
+                        </p>
+                    </div>
+
                 </motion.div>
             )}
         </AnimatePresence>
