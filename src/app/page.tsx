@@ -9,7 +9,7 @@ import Services from "@/components/Services";
 import InfoGrid from "@/components/InfoGrid";
 import Contact from "@/components/Contact";
 import Process from "@/components/Process";
-import Testimonials from "@/components/Testimonials";
+// Removed Testimonials
 import CallToAction from "@/components/CallToAction";
 
 export default function Home() {
@@ -29,7 +29,7 @@ export default function Home() {
       <InfoGrid />
 
       <ProjectShowcase />
-      <Testimonials />
+
       <CallToAction />
 
       <Contact />

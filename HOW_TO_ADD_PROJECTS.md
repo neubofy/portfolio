@@ -5,7 +5,7 @@
    - Example: `public/images/my-new-project.jpg`
 
 2. **Update Data**:
-   - Open `src/data/projects.json`.
+   - Open `public/data/projects.json` (or `src/data/projects.json`).
    - Add a new entry to the list following this format:
      ```json
      {
@@ -13,11 +13,12 @@
        "title": "My New Project",
        "description": "Short description of the project...",
        "tags": ["React", "AI", "Tool"],
-       "link": "https://link-to-project.com",
-       "image": "/images/my-new-project.jpg"
+       "liveLink": "https://link-to-project.com",
+       "image": "/images/my-new-project.jpg",
+       "thumbnails": ["/images/screen1.jpg", "/images/screen2.jpg"] // Optional gallery
      }
      ```
 
 3. **Save**:
    - Save the file. The website will automatically update if running locally.
-   - For production, redeploy (e.g., commit and push to GitHub).
+   - For production, redeploy (commit and push to GitHub).
