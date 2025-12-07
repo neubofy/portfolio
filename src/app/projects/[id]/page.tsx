@@ -99,7 +99,7 @@ function TopGallery({ items }: { items: string[] }) {
 
                 {/* Responsive Gallery Container: Mobile Slider / Desktop Grid */}
                 {/* Mobile: overflow-x-auto with snap-x. Desktop: grid */}
-                <div className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible snap-x md:snap-none pb-8 md:pb-0 no-scrollbar touch-pan-x">
+                <div className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible snap-x md:snap-none pb-8 md:pb-0 no-scrollbar touch-pan-x min-h-[40vh] items-center">
                     <AnimatePresence mode="popLayout">
                         {displayItems.map((item, idx) => (
                             <motion.div
