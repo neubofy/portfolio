@@ -7,7 +7,7 @@ const terminalLines = [
     "> INITIALIZING_NEURAL_UPLINK...",
     "> CONNECTING_TO_MAINFRAME...",
     "> LOADING_ASSETS: [██████████] 100%",
-    "> ACCESS_GRANTED: WELCOME_TO_MY_UNIVERSE"
+    "> ACCESS_GRANTED: WELCOME_TO_MY_PORTFOLIO"
 ];
 
 export default function Preloader() {
@@ -73,7 +73,7 @@ export default function Preloader() {
                             >
                                 <img
                                     src="/images/myphoto.jpg"
-                                    alt="Pawan Washudev"
+                                    alt="Sohan Kumar"
                                     className="w-full h-full object-cover"
                                 />
                             </motion.div>
