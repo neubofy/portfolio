@@ -37,7 +37,7 @@ export default function Hero() {
                         <div className="absolute inset-0 rounded-full bg-[var(--gold)] blur-[25px] opacity-20 animate-pulse group-hover:opacity-50 transition-opacity"></div>
                         <img
                             src="/images/myphoto.jpg"
-                            alt="Pawan Washudev"
+                            alt="Sohan Kumar"
                             className="w-full h-full rounded-full object-cover transition-all duration-500 relative z-10"
                         />
                     </a>
