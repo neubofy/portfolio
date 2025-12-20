@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pawan Washudev | AI Expert & Developer",
-  description: "Portfolio of Pawan Washudev, an AI Expert and Web Engineer crafting intelligent digital ecosystems.",
+  title: "Sohan Kumar | AI Expert & Developer",
+  description: "Portfolio of Sohan Kumar AKA Pawan Washudev an AI Expert and Web Engineer crafting intelligent digital ecosystems.",
   icons: {
     icon: '/favicon.ico',
   },
