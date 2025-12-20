@@ -31,7 +31,7 @@ export default function Navbar() {
                             onClick={scrollToTop}
                             className="text-[var(--gold)] font-bold text-2xl hover:text-white transition-colors"
                         >
-                            Pawan Washudev
+                            Sohan Kumar
                         </button>
                     </div>
                 </div>
