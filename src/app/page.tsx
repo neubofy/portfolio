@@ -35,7 +35,7 @@ export default function Home() {
       <Contact />
 
       <footer className="py-8 text-center text-gray-600 text-sm border-t border-white/5">
-        © {new Date().getFullYear()} Pawan Washudev. Architecting the Future of Intelligence.
+        © {new Date().getFullYear()} Sohan Kumar. Architecting the Future of Intelligence.
       </footer>
     </main>
   );
