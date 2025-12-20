@@ -11,7 +11,7 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
     {
-        quote: "Pawan doesn't just write code; he architects intelligent systems. His ability to merge AI workflows with high-performance web engineering is unmatched.",
+        quote: "I doesn't just write code;I architect intelligent systems. His ability to merge AI workflows with high-performance web engineering is unmatched.",
         author: "Sarah Jenkins",
         role: "CTO, NextGen AI"
     },
