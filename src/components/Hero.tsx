@@ -58,7 +58,7 @@ export default function Hero() {
                             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
                             className="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-white group-hover:to-gray-400 group-hover:drop-shadow-[0_0_30px_rgba(197,160,89,0.5)] transition-all"
                         >
-                            PAWAN
+                            SOHAN
                         </motion.div>
                         <motion.div
                             initial={{ y: 100, opacity: 0 }}
@@ -66,7 +66,7 @@ export default function Hero() {
                             transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                             className="text-transparent bg-clip-text bg-gradient-to-b from-[var(--gold)] to-[var(--gold-dark)] drop-shadow-[0_0_10px_rgba(197,160,89,0.2)] group-hover:drop-shadow-[0_0_40px_rgba(197,160,89,0.8)] transition-all"
                         >
-                            WASHUDEV
+                            KUMAR
                         </motion.div>
                     </h1>
                 </a>
