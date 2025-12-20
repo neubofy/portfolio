@@ -71,7 +71,7 @@ export default function ProjectsPage() {
             </section>
 
             <footer className="py-8 text-center text-gray-600 text-sm border-t border-white/5">
-                © {new Date().getFullYear()} Pawan Washudev. All rights reserved.
+                © {new Date().getFullYear()} Sohan Kumar. All rights reserved.
             </footer>
         </main>
     );
