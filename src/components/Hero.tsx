@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import TypewriterText from './TypewriterText';
 
 export default function Hero() {
     const containerRef = useRef<HTMLElement>(null);
@@ -51,14 +52,14 @@ export default function Hero() {
 
                 {/* Massive Name - Diamond Effect */}
                 <a href="#projects" className="block cursor-pointer group">
-                    <h1 className="text-[12vw] leading-[0.9] font-black tracking-tighter text-white select-none relative z-20 transition-transform duration-500 group-hover:scale-105">
+                    <h1 className="text-[15vw] leading-[0.8] font-bold text-white select-none relative z-20 transition-transform duration-500 group-hover:scale-105">
                         <motion.div
                             initial={{ y: 100, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
                             className="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-b group-hover:from-white group-hover:to-gray-400 group-hover:drop-shadow-[0_0_30px_rgba(197,160,89,0.5)] transition-all"
                         >
-                            SOHAN
+                            Sohan
                         </motion.div>
                         <motion.div
                             initial={{ y: 100, opacity: 0 }}
@@ -66,20 +67,14 @@ export default function Hero() {
                             transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                             className="text-transparent bg-clip-text bg-gradient-to-b from-[var(--gold)] to-[var(--gold-dark)] drop-shadow-[0_0_10px_rgba(197,160,89,0.2)] group-hover:drop-shadow-[0_0_40px_rgba(197,160,89,0.8)] transition-all"
                         >
-                            KUMAR
+                            Kumar
                         </motion.div>
                     </h1>
                 </a>
-
                 {/* Professional Title */}
-                <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1, delay: 0.5 }}
-                    className="mt-8 text-xl md:text-2xl text-gray-400 font-light tracking-wide max-w-2xl"
-                >
-                    18yo AI Generalist <span className="text-[var(--gold)] mx-2">•</span> Vibe Coding Expert <span className="text-[var(--gold)] mx-2">•</span> Digital Perfectionist
-                </motion.p>
+                <div className="mt-8 text-xl md:text-2xl text-gray-400 font-light tracking-wide max-w-2xl">
+                    <TypewriterText text="18yo AI Generalist • Vibe Coding Expert • Digital Perfectionist" speed={0.03} delay={1} />
+                </div>
             </motion.div>
 
             {/* Scroll Indicator */}

@@ -6,11 +6,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 const terminalLines = [
     "> INITIALIZING_NEURAL_UPLINK...",
     "> CONNECTING_TO_MAINFRAME...",
+    "> BYPASSING_SECURITY_NODES...",
+    "> DECRYPTING_USER_DATA...",
+    "> OPTIMIZING_AI_CORES [v4.0]...",
+    "> ESTABLISHING_SECURE_CHANNEL...",
+    "> COMPILING_VIBE_CODING_MODULES...",
     "> LOADING_ASSETS: [██████████] 100%",
-    "> ACCESS_GRANTED: WELCOME_TO_MY_PORTFOLIO"
+    "> ACCESS_GRANTED: VISITOR_IDENTIFIED. WELCOME."
 ];
 
+import { usePathname } from 'next/navigation';
+
 export default function Preloader() {
+    const pathname = usePathname();
     const [isLoading, setIsLoading] = useState(true);
     const [terminalIndex, setTerminalIndex] = useState(0);
 
@@ -23,17 +31,22 @@ export default function Preloader() {
                 clearInterval(lineTimer);
                 return prev;
             });
-        }, 800);
+        }, 150); // Super fast 150ms per line
 
         const exitTimer = setTimeout(() => {
             setIsLoading(false);
-        }, 4000); // 4 seconds total duration
+        }, 2500); // 2.5 seconds fast exit
 
         return () => {
             clearInterval(lineTimer);
             clearTimeout(exitTimer);
         };
     }, []);
+
+    // Disable Preloader on Project Detail Pages so their custom loader works
+    if (pathname && pathname.startsWith('/projects/') && pathname !== '/projects') {
+        return null;
+    }
 
     return (
         <AnimatePresence mode="wait">

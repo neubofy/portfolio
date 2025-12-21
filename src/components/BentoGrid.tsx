@@ -12,7 +12,7 @@ export default function BentoGrid() {
                 The <span className="text-gradient-gold">Perfectionist</span> Standard
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-3 gap-6 h-auto md:h-[900px]">
+            <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-3 gap-6 h-auto md:h-[1200px]">
 
                 {/* 1. The Prodigy (Main About) - 2x2 */}
                 <motion.div
@@ -32,10 +32,10 @@ export default function BentoGrid() {
                                 </span>
                                 <h3 className="text-3xl font-bold text-white">AI-Native Architect</h3>
                             </div>
-                            <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                            <p className="text-gray-300 text-xl leading-relaxed mb-6">
                                 Since <b>December 2022</b>, I have not just used AI; I have merged with it. I command the full potential of Artificial Intelligence with <b>human perfection</b> to build systems that were previously impossible.
                             </p>
-                            <p className="text-gray-300 text-lg leading-relaxed">
+                            <p className="text-gray-300 text-xl leading-relaxed">
                                 I am a <b>Vibe Coding Expert</b> with 3+ years of raw development experience. I know exactly where AI falters and where my expertise must intervene. The result? <b>Flawless, top-notch digital architectures.</b>
                             </p>
                         </div>

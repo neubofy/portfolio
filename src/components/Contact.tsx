@@ -117,6 +117,20 @@ export default function Contact() {
                         </a>
                     ))}
                 </motion.div>
+
+                {/* Identity Clarification Note */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: 1 }}
+                    className="mt-16 text-center"
+                >
+                    <p className="text-gray-500 text-sm font-mono tracking-wide">
+                        <span className="opacity-50">Official Identity:</span> <span className="text-white font-bold">Sohan Kumar</span>
+                        <span className="mx-4 opacity-30">|</span>
+                        <span className="opacity-50">Digital Alias:</span> <span className="text-[var(--gold)] font-bold">Pawan Washudev</span>
+                    </p>
+                </motion.div>
             </div>
         </section>
     );

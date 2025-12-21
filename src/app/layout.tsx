@@ -1,16 +1,24 @@
 import type { Metadata } from "next";
-import { Outfit, Geist_Mono } from "next/font/google";
+import { Dancing_Script, Geist_Mono, Patrick_Hand } from "next/font/google"; // Switching to Dancing Script for "Beautiful" look
 import "./globals.css";
 
-const outfit = Outfit({
-  variable: "--font-geist-sans", // Keeping variable name to avoid breaking globals.css
+const dancingScript = Dancing_Script({
+  variable: "--font-dancing",
   subsets: ["latin"],
   display: 'swap',
+  weight: ['400', '700'],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const patrickHand = Patrick_Hand({
+  variable: "--font-patrick",
+  subsets: ["latin"],
+  display: 'swap',
+  weight: '400',
 });
 
 export const metadata: Metadata = {
@@ -36,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${outfit.variable} ${geistMono.variable} antialiased`}
+        className={`${dancingScript.variable} ${geistMono.variable} ${patrickHand.variable} antialiased font-[family-name:var(--font-patrick)]`}
       >
         <Preloader />
         <LiveBackground />

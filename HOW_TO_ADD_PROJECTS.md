@@ -1,78 +1,99 @@
-# How to Add a New Project (The Super-Powered Way)
+# 📘 How to Add or Manage Projects
 
-Your portfolio uses a powerful data-driven system (`projects.json`) that turns raw JSON into extensive, beautiful case studies.
+This portfolio uses a flexible, file-based content management system. Each project is a standalone JSON file, giving you granular control over the layout, media, and content without touching the code.
 
-## 1. Top Level Config (The Hero Section)
+---
 
-This information powers the **Immersive Header** and **Top Gallery**.
+## 🚀 Quick Start in 3 Steps
+
+1.  **Create**: Add a new `.json` file in `public/data/projects/` (e.g., `my-super-app.json`).
+2.  **Populate**: Copy the [Master Template](#master-template) below and fill in your data.
+3.  **Register**: Add your filename (e.g., "my-super-app") to `public/data/projects_master.json`.
+
+---
+
+## 💎 Master Template (Full Capabilities)
+
+Copy this JSON structure to use **every feature** available in the system.
 
 ```json
 {
-    "id": "unique-id",
-    "title": "Project Name",
-    "description": "One sentence 'Hook' description for the hero area.",
-    "tags": ["Next.js", "AI", "Design"],
-    "liveLink": "https://...",
-    
-    // PRIMARY HERO IMAGE (Background Blur)
-    "image": "/images/cover.jpg",
-    
-    // TOP GALLERY (Auto-Slideshow)
-    // Put your best 3-5 shots here. Videos work too!
-    "thumbnails": [
-        "/images/shot1.jpg",
-        "/images/shot2.jpg",
-        "/images/demo-vid.mp4" 
-    ]
+  "id": "my-project-id",
+  "title": "Project Title",
+  "description": "A compelling 1-2 sentence description for the home page card.",
+  "tags": ["React", "AI", "Design", "Automation"],
+  "liveLink": "https://neubofy.bar",
+  "thumbnail": "/images/card-thumbnail.jpg",
+  "heroImage": "/images/hero-banner.jpg",
+  "gallery": [
+    "/images/screenshot-1.jpg",
+    "/images/demo-video.mp4",
+    "https://external-site.com/image.png"
+  ],
+  "sections": [
+    {
+      "title": "Overview",
+      "content": "Write **Markdown** here! You can use lists, code blocks, and *styles*.",
+      "images": ["/images/detail-1.jpg", "/images/detail-2.jpg"],
+      "imageStyle": "grid",
+      "links": [
+        { "label": "Read Case Study", "url": "https://medium.com/..." }
+      ]
+    }
+  ]
 }
 ```
 
 ---
 
-## 2. The "Super Power" Sections
+## 🧩 Field Reference & Capabilities
 
-You can add unlimited sections. Each section supports **Rich Markdown**, **Media Grids/Sliders**, and **Custom Links**.
+### Core Metadata
+| Field | Type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `id` | `string` | **Yes** | Unique identifier. Should match the filename (e.g., `"photo-editor"`). |
+| `title` | `string` | **Yes** | The main headline of the project. |
+| `description` | `string` | **Yes** | Short summary shown on the home page card. |
+| `tags` | `array` | **Yes** | List of technologies (e.g., `["Next.js", "AI"]`). Max 4 recommended. |
+| `liveLink` | `string` | No | URL to the live project. Adds a "Live" button. |
 
-### Markdown Capabilities
-In the `"content"` field, you can use:
-- `### Header 3` for section sub-titles.
-- `**Bold**` for emphasis.
-- `> Blockquotes` for testimonials or key insights (styled with gold border).
-- `- Bullet lists` for features or tech stacks.
+### Visual Assets
+| Field | Type | Description | Capabilities |
+| :--- | :--- | :--- | :--- |
+| `thumbnail` | `string` | Image shown on the Home Page card. | Supports JPG, PNG, WEBP, GIF. |
+| `heroImage` | `string` | Large banner image at the top of the Case Study page. | Supports standard images. |
+| `gallery` | `array` | Top carousel of highlights. | **Supports Videos!** (`.mp4`, `.webm`). Put essential visuals here. |
 
-### Media Capabilities
-- **Videos**: Just paste an `.mp4` link in the `images` array. It automagically plays.
-- **Grid vs Slider**: Set `"imageStyle": "grid"` for a 2-col grid, or `"slider"` for a carousel.
+### Content Sections
+The `sections` array allows you to tell a story. You can add as many sections as you want.
 
-### Section Links
-Add buttons specific to that section (e.g. "Read Case Study", "View Figma").
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `title` | `string` | Section heading (e.g., "The Problem", "Architecture"). Optional. |
+| `content` | `markdown` | The body text. Supports rich Markdown formatting (see below). |
+| `images` | `array` | List of images/videos specific to this section. |
+| `imageStyle` | `string` | Layout mode for the images: <br>• `"grid"`: Good for screenshots (2-3 columns). <br>• `"slider"`: Good for many mobile screens or swipeable galleries. |
+| `links` | `array` | External links relevant to this section (e.g., "See Figma", "View Code"). |
 
-### Full "Super Section" Example:
+#### Markdown Capabilities in `content`
+You can write rich text inside the `content` string:
+*   **Bold/Italic**: `**text**`, `*text*`
+*   **Lists**: `- Item 1` or `1. Item 1`
+*   **Headings**: `### Subheading`
+*   **Quotes**: `> This is a quote`
+*   **Code**: \`console.log('Hello')\`
 
-```json
-{
-    "title": "Engineering Architecture",
-    "content": "We used **Next.js** for the frontend to ensure SEO dominance.\n\n> \"The fastest load times we've ever seen.\"\n\n### Tech Stack\n- **Database**: Supabase\n- **Auth**: Clerk\n- **Styling**: Tailwind",
-    
-    "images": [
-        "/images/architecture-diagram.png",
-        "https://my-bucket.com/demo-video.mp4"
-    ],
-    "imageStyle": "grid",
-    
-    "links": [
-        {
-            "label": "View System Diagram",
-            "url": "https://..."
-        },
-        {
-            "label": "Read Source Code",
-            "url": "https://github.com/..."
-        }
-    ]
-}
-```
+---
 
-## 3. Asset Management
-- **Images**: Save to `public/images/`
-- **Videos**: Save to `public/videos/` or use external URLs.
+## 📁 File Management
+*   **Location**: All project JSON files live in `public/data/projects/`.
+*   **Images**: Store local images in `public/images/`. You can also use absolute URLs (`https://...`).
+*   **Ordering**: The order in `public/data/projects_master.json` determines the order on the website.
+*   **Top 3**: The first 3 projects in the master list appear on the Home Page.
+
+---
+
+## ⚡ Pro Tips
+*   **Videos**: If you add a URL ending in `.mp4` into `gallery` or `sections.images`, it will automatically render as an autoplaying, muted loop video.
+*   **Mix & Match**: You can mix images and videos in the same gallery.
+*   **Empty Sections**: You can have a section with just images (leave `content` empty) or just text (no `images`).

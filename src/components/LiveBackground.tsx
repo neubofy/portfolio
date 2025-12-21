@@ -19,15 +19,16 @@ export default function LiveBackground() {
         let mouse = { x: -1000, y: -1000 };
 
         // Configuration
-        const particleCount = width < 768 ? 60 : 150;
+        // Increased density for mobile as requested
+        const particleCount = width < 768 ? 100 : 200;
         const particles: Particle[] = [];
 
-        // Gold Palette
+        // Gold Palette - High Visibility Opaque
         const colors = [
-            'rgba(212, 175, 55, 0.6)',   // Classic Gold
-            'rgba(255, 223, 0, 0.6)',    // Bright Gold
-            'rgba(184, 134, 11, 0.6)',   // Dark Gold
-            'rgba(205, 127, 50, 0.5)',   // Bronze
+            'rgba(212, 175, 55, 0.9)',   // Classic Gold
+            'rgba(255, 233, 30, 0.9)',   // Bright Yellow Gold
+            'rgba(218, 165, 32, 0.9)',   // Goldenrod
+            'rgba(255, 215, 0, 0.9)',    // Pure Gold
         ];
 
         class Particle {
@@ -45,7 +46,7 @@ export default function LiveBackground() {
                 this.y = Math.random() * height;
                 this.vx = 0;
                 this.vy = 0;
-                this.size = Math.random() * 3 + 1; // Varying size
+                this.size = Math.random() * 3 + 1.5; // Slightly larger
                 this.color = colors[Math.floor(Math.random() * colors.length)];
                 this.angle = Math.random() * Math.PI * 2;
                 this.speed = Math.random() * 0.5 + 0.2; // Slow float
@@ -53,7 +54,6 @@ export default function LiveBackground() {
 
             update() {
                 // Flow Field Logic (Simulated fluid)
-                // Use position to determine angle (Pseudo-perlin)
                 const scale = 0.002;
                 const angle = (Math.cos(this.x * scale) + Math.sin(this.y * scale)) * Math.PI;
 
@@ -67,16 +67,20 @@ export default function LiveBackground() {
                     this.vy = (this.vy / speed) * this.speed;
                 }
 
-                // Mouse Interaction (Push/Float away)
+                // Interaction (Push/Float away)
                 const dx = this.x - mouse.x;
                 const dy = this.y - mouse.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
 
-                if (dist < 200) {
-                    const force = (200 - dist) / 200;
+                // Increased interactive radius and force
+                const interactRadius = width < 768 ? 150 : 250;
+
+                if (dist < interactRadius) {
+                    const force = (interactRadius - dist) / interactRadius;
                     const repulsionAngle = Math.atan2(dy, dx);
-                    this.vx += Math.cos(repulsionAngle) * force * 0.5;
-                    this.vy += Math.sin(repulsionAngle) * force * 0.5;
+                    // Strong repulsion for high reactivity
+                    this.vx += Math.cos(repulsionAngle) * force * 2.0;
+                    this.vy += Math.sin(repulsionAngle) * force * 2.0;
                 }
 
                 this.x += this.vx;
@@ -95,8 +99,8 @@ export default function LiveBackground() {
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fillStyle = this.color;
 
-                // Glow effect for "Floating"
-                ctx.shadowBlur = 10;
+                // Strong Glow
+                ctx.shadowBlur = 15;
                 ctx.shadowColor = this.color;
 
                 ctx.fill();
@@ -113,8 +117,8 @@ export default function LiveBackground() {
 
         function animate() {
             if (!ctx) return;
-            // Trails for fluid effect
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; // Very long trails -> Fluid sheet
+            // Trails
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // Slightly faster fade for clearer movement
             ctx.fillRect(0, 0, width, height);
 
             particles.forEach(p => {
@@ -122,7 +126,7 @@ export default function LiveBackground() {
                 p.draw();
             });
 
-            // Connect nearby points to form "Surface"
+            // Connect nearby points
             ctx.lineWidth = 0.5;
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
@@ -130,9 +134,12 @@ export default function LiveBackground() {
                     const dy = particles[i].y - particles[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
-                    if (dist < 100) {
+                    const connectDist = width < 768 ? 80 : 120; // Shorter connections on mobile to reduce clutter
+
+                    if (dist < connectDist) {
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(212, 175, 55, ${0.2 - dist / 500})`; // Faint connections
+                        // Much more visible lines
+                        ctx.strokeStyle = `rgba(212, 175, 55, ${0.4 - dist / (connectDist * 2)})`;
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
@@ -157,16 +164,27 @@ export default function LiveBackground() {
             mouse.y = e.clientY;
         };
 
+        const handleTouchMove = (e: TouchEvent) => {
+            if (e.touches.length > 0) {
+                mouse.x = e.touches[0].clientX;
+                mouse.y = e.touches[0].clientY;
+            }
+        };
+
         window.addEventListener('resize', handleResize);
         window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('touchmove', handleTouchMove, { passive: true });
+        window.addEventListener('touchstart', handleTouchMove, { passive: true });
 
         return () => {
             window.removeEventListener('resize', handleResize);
             window.removeEventListener('mousemove', handleMouseMove);
+            window.removeEventListener('touchmove', handleTouchMove);
+            window.removeEventListener('touchstart', handleTouchMove);
             cancelAnimationFrame(animationFrameId);
         };
     }, []);
 
     // Deep Black base
-    return <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none" style={{ background: '#000000' }} />;
+    return <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none" style={{ background: 'transparent' }} />;
 }

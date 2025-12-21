@@ -46,7 +46,7 @@ export default function Process() {
                         transition={{ duration: 0.5, delay: i * 0.1 }}
                         className={`glass-panel p-8 rounded-3xl relative border-t-4 ${step.color} hover:-translate-y-2 transition-transform duration-300 group`}
                     >
-                        <span className="absolute -top-10 left-6 text-6xl font-bold text-white/5 group-hover:text-white/10 transition-colors">
+                        <span className="absolute top-2 right-4 text-7xl font-bold text-white/5 group-hover:text-white/10 transition-colors pointer-events-none font-sans">
                             {step.num}
                         </span>
                         <div className="pt-4">

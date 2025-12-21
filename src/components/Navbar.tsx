@@ -2,11 +2,17 @@
 
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom'; // Import Portal
 import { FaBars, FaTimes } from 'react-icons/fa';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -64,40 +70,57 @@ export default function Navbar() {
                 </div>
             </motion.nav>
 
-            {/* Mobile Menu Overlay */}
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className="fixed inset-0 z-40 bg-black/95 backdrop-blur-3xl pt-32 px-6 md:hidden flex flex-col items-center gap-8 border-t border-[var(--glass-border)]"
-                    >
-                        <Link
-                            href="/"
-                            onClick={() => setIsOpen(false)}
-                            className="text-2xl font-bold text-white hover:text-[var(--gold)]"
-                        >
-                            Home
-                        </Link>
-                        <Link
-                            href="/projects"
-                            onClick={() => setIsOpen(false)}
-                            className="text-2xl font-bold text-white hover:text-[var(--gold)]"
-                        >
-                            Projects
-                        </Link>
-                        <Link
-                            href="#contact"
-                            onClick={() => setIsOpen(false)}
-                            className="text-2xl font-bold text-white hover:text-[var(--gold)]"
-                        >
-                            Contact
-                        </Link>
-                        <div className="w-12 h-1 bg-[var(--gold)] rounded-full mt-4" />
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            {/* Mobile Menu Overlay - Portal to Body to fix positioning issues */}
+            {mounted && createPortal(
+                <AnimatePresence>
+                    {isOpen && (
+                        <>
+                            {/* Backdrop - Click to Close */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                onClick={() => setIsOpen(false)}
+                                className="fixed inset-0 z-[9998] bg-black/60 backdrop-blur-sm md:hidden"
+                            />
+
+                            {/* Menu Popup */}
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95, x: "-50%", y: "-50%" }}
+                                animate={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
+                                exit={{ opacity: 0, scale: 0.95, x: "-50%", y: "-50%" }}
+                                transition={{ type: "spring", duration: 0.3 }}
+                                className="fixed top-1/2 left-1/2 z-[9999] w-[85vw] max-w-sm bg-black border border-[var(--gold)] rounded-2xl flex flex-col items-center gap-8 py-12 shadow-2xl md:hidden"
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                <Link
+                                    href="/"
+                                    onClick={() => setIsOpen(false)}
+                                    className="text-2xl font-bold text-white hover:text-[var(--gold)]"
+                                >
+                                    Home
+                                </Link>
+                                <Link
+                                    href="/projects"
+                                    onClick={() => setIsOpen(false)}
+                                    className="text-2xl font-bold text-white hover:text-[var(--gold)]"
+                                >
+                                    Projects
+                                </Link>
+                                <Link
+                                    href="#contact"
+                                    onClick={() => setIsOpen(false)}
+                                    className="text-2xl font-bold text-white hover:text-[var(--gold)]"
+                                >
+                                    Contact
+                                </Link>
+                                <div className="w-12 h-1 bg-[var(--gold)] rounded-full mt-2" />
+                            </motion.div>
+                        </>
+                    )}
+                </AnimatePresence>,
+                document.body
+            )}
         </>
     );
 }

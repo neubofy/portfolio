@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
 
-const ROTATION_RANGE = 25; // Degrees
+const ROTATION_RANGE = 32.5; // Degrees
 const HALF_ROTATION_RANGE = ROTATION_RANGE / 2;
 
 export default function TiltCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
@@ -12,8 +12,8 @@ export default function TiltCard({ children, className = "" }: { children: React
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
-    const xSpring = useSpring(x, { stiffness: 400, damping: 30 }); // Snappier spring
-    const ySpring = useSpring(y, { stiffness: 400, damping: 30 });
+    const xSpring = useSpring(x, { stiffness: 900, damping: 15 }); // Super Fast & Bouncy
+    const ySpring = useSpring(y, { stiffness: 900, damping: 15 });
 
     const transform = useMotionTemplate`perspective(1000px) rotateX(${xSpring}deg) rotateY(${ySpring}deg)`;
 

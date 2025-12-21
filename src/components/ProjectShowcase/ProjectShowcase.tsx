@@ -3,6 +3,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaArrowRight, FaExternalLinkAlt } from 'react-icons/fa';
+import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
+import TiltCard from '../TiltCard';
 
 interface Project {
     id: string;
@@ -38,25 +41,27 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
             {/* Image Section - Floating Animation */}
             <motion.div
                 style={{ y }}
-                className="w-full md:w-3/5 aspect-video relative rounded-3xl overflow-hidden group shadow-2xl border border-white/10"
+                className="w-full md:w-3/5 aspect-video relative rounded-3xl group shadow-2xl border border-white/10 z-10"
             >
-                {img ? (
-                    <img
-                        src={img}
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] to-black" />
-                )}
+                <TiltCard className="w-full h-full rounded-3xl overflow-hidden">
+                    {img ? (
+                        <img
+                            src={img}
+                            alt={project.title}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                    ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] to-black" />
+                    )}
 
-                {/* Glossy Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none" />
+                    {/* Glossy Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none" />
 
-                {/* Floating ID Tag */}
-                <div className="absolute top-4 left-4 px-4 py-2 bg-black/50 backdrop-blur-md border border-white/10 rounded-full text-xs font-mono text-[var(--gold)]">
-                    PROJECT_0{index + 1}
-                </div>
+                    {/* Floating ID Tag */}
+                    <div className="absolute top-4 left-4 px-4 py-2 bg-black/50 backdrop-blur-md border border-white/10 rounded-full text-xs font-mono text-[var(--gold)]">
+                        PROJECT_0{index + 1}
+                    </div>
+                </TiltCard>
             </motion.div>
 
             {/* Content Section */}
@@ -78,14 +83,24 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
                         {project.title}
                     </h3>
 
-                    <p className="text-gray-400 text-lg leading-relaxed mb-8">
-                        {project.description}
-                    </p>
+                    <div className="mb-8">
+                        <ReactMarkdown
+                            components={{
+                                p: ({ node, ...props }) => <p className="text-gray-400 text-lg leading-relaxed" {...props} />,
+                                strong: ({ node, ...props }) => <strong className="text-white font-bold" {...props} />,
+                                em: ({ node, ...props }) => <em className="text-[var(--gold)] not-italic" {...props} />
+                            }}
+                        >
+                            {project.description}
+                        </ReactMarkdown>
+                    </div>
+
+
 
                     <div className="flex justify-center md:justify-start items-center gap-6">
-                        <a href={`/projects/${project.id}`} className="group flex items-center gap-3 text-white font-bold text-lg border-b-2 border-[var(--gold)] pb-1 hover:text-[var(--gold)] transition-colors">
+                        <Link href={`/projects/${project.id}`} className="group flex items-center gap-3 text-white font-bold text-lg border-b-2 border-[var(--gold)] pb-1 hover:text-[var(--gold)] transition-colors">
                             View Case Study <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
-                        </a>
+                        </Link>
                         {project.liveLink && (
                             <a href={project.liveLink} target="_blank" className="text-gray-500 hover:text-white transition-colors text-sm flex items-center gap-2">
                                 <FaExternalLinkAlt /> Live
@@ -102,10 +117,37 @@ export default function ProjectShowcase() {
     const [projects, setProjects] = useState<Project[]>([]);
 
     useEffect(() => {
-        fetch('/data/projects.json')
-            .then((res) => res.json())
-            .then((data) => setProjects(data))
-            .catch((err) => console.error(err));
+        const loadProjects = async () => {
+            try {
+                // 1. Fetch Master List
+                const masterRes = await fetch('/data/projects_master.json');
+                if (!masterRes.ok) throw new Error('Failed to load master list');
+                const fileNames: string[] = await masterRes.json();
+
+                // 2. Fetch all project files (and map ID to filename)
+                const projectPromises = fileNames.map(async (fileName) => {
+                    try {
+                        const res = await fetch(`/data/projects/${fileName}.json`);
+                        if (!res.ok) return null;
+                        const data = await res.json();
+                        // CRITICAL: Ensure ID matches filename for routing
+                        return { ...data, id: fileName };
+                    } catch (e) {
+                        return null;
+                    }
+                });
+
+                const results = await Promise.all(projectPromises);
+
+                // 3. Filter out failed loads
+                const validProjects = results.filter((p): p is Project => p !== null);
+                setProjects(validProjects);
+            } catch (err) {
+                console.error("Error loading projects:", err);
+            }
+        };
+
+        loadProjects();
     }, []);
 
     return (

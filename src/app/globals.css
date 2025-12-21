@@ -15,6 +15,10 @@
   --glass-border: rgba(255, 255, 255, 0.08);
 }
 
+.font-patrick {
+  font-family: var(--font-patrick), cursive;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -22,20 +26,29 @@
   --color-gold-light: var(--gold-light);
   --color-gold-dark: var(--gold-dark);
   --color-gold-dim: var(--gold-dim);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-patrick);
   --font-mono: var(--font-geist-mono);
+}
+
+html {
+  background: var(--background);
+  scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
   background: transparent;
   /* LiveBackground handles the visual layer */
   color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
-  font-size: 1.25rem;
-  /* Increased for Caveat readability */
+  font-family: var(--font-patrick), 'Patrick Hand', cursive;
+  font-size: 1.8rem;
+  /* Increased size for readability */
   letter-spacing: 0.02em;
   overflow-x: hidden;
   min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  z-index: 10;
 }
 
 /* Custom Scrollbar */
@@ -73,8 +86,10 @@ body {
 
 /* Liquid Glass Hover Effect */
 .glass-panel:hover {
-  background: rgba(5, 5, 5, 0.85); /* Solid dark for text pop */
-  border-color: rgba(197, 160, 89, 0.5); /* Gold Edge */
+  background: rgba(5, 5, 5, 0.85);
+  /* Solid dark for text pop */
+  border-color: rgba(197, 160, 89, 0.5);
+  /* Gold Edge */
   box-shadow:
     0 20px 40px rgba(0, 0, 0, 0.6),
     0 0 30px rgba(197, 160, 89, 0.1);

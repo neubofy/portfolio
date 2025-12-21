@@ -22,16 +22,30 @@ export default function ProjectsPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('/data/projects.json')
-            .then((res) => res.json())
-            .then((data) => {
-                setProjects(data);
-                setLoading(false);
-            })
-            .catch((err) => {
+        const loadProjects = async () => {
+            try {
+                const masterRes = await fetch('/data/projects_master.json');
+                const fileNames: string[] = await masterRes.json();
+
+                const projectPromises = fileNames.map(async (fileName) => {
+                    try {
+                        const res = await fetch(`/data/projects/${fileName}.json`);
+                        if (!res.ok) return null;
+                        const data = await res.json();
+                        return { ...data, id: fileName };
+                    } catch { return null; }
+                });
+
+                const loadedProjects = (await Promise.all(projectPromises)).filter((p): p is Project => p !== null);
+                setProjects(loadedProjects);
+            } catch (err) {
                 console.error("Failed to load projects:", err);
+            } finally {
                 setLoading(false);
-            });
+            }
+        };
+
+        loadProjects();
     }, []);
 
     return (

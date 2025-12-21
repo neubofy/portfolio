@@ -68,25 +68,14 @@ function MediaItem({ src, className, autoPlay = true }: { src: string; className
 
 // Top Gallery Component - Shows 3 items, slides if more
 // Mobile Optimized: Horizontal Scroll Snap
+// Top Gallery Component - Shows items in a grid/slider
+// Mobile Optimized: Horizontal Scroll Snap, No Auto-Slide to prevent glitches
+// Top Gallery Component - Shows items in a grid/slider
+// Mobile Optimized: Horizontal Scroll Snap, Uniform Aspect Ratio
+// Top Gallery Component - Shows items in a grid/slider
+// Mobile Optimized: Horizontal Scroll Snap, Uniform Aspect Ratio
 function TopGallery({ items }: { items: string[] }) {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const visibleCount = 3;
-    const shouldSlide = items.length > 1;
-
-    useEffect(() => {
-        if (!shouldSlide) return;
-        const interval = setInterval(() => {
-            setCurrentIndex((prev) => (prev + 1) % items.length);
-        }, 3000);
-        return () => clearInterval(interval);
-    }, [shouldSlide, items.length]);
-
     if (!items || items.length === 0) return null;
-
-    // Create a circular array for infinite feel when mapping
-    const displayItems = shouldSlide
-        ? [...items, ...items, ...items].slice(currentIndex, currentIndex + visibleCount)
-        : items;
 
     return (
         <section className="py-20 border-b border-white/5 bg-[#050507]">
@@ -97,43 +86,34 @@ function TopGallery({ items }: { items: string[] }) {
                     <div className="h-px bg-white/10 flex-1" />
                 </div>
 
-                {/* Responsive Gallery Container: Mobile Slider / Desktop Grid */}
-                {/* Mobile: overflow-x-auto with snap-x. Desktop: grid */}
-                <div className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible snap-x md:snap-none pb-8 md:pb-0 no-scrollbar touch-pan-x min-h-[40vh] items-center">
-                    <AnimatePresence mode="popLayout">
-                        {displayItems.map((item, idx) => (
-                            <motion.div
-                                key={`${item}-${idx}-${currentIndex}`}
-                                layout
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.95 }}
-                                transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
-                                className="relative rounded-xl overflow-hidden shadow-2xl border border-white/10 group bg-[#0a0a0a] min-w-[85vw] md:min-w-0 flex-shrink-0 snap-center"
-                            >
-                                <MediaItem src={item} className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105" />
-                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />
-                            </motion.div>
-                        ))}
-                    </AnimatePresence>
+                {/* Responsive Gallery Container */}
+                <div className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible snap-x md:snap-none pb-8 md:pb-0 no-scrollbar items-center">
+                    {items.map((item, idx) => (
+                        <div
+                            key={`${item}-${idx}`}
+                            className="relative aspect-video rounded-xl overflow-hidden shadow-2xl border border-white/10 group bg-black w-full md:w-auto md:min-w-0 flex-shrink-0 snap-center"
+                        >
+                            <MediaItem src={item} className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105" />
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>
     );
 }
 
-// Reusing MediaGallery for inner sections if needed
+// Reusing MediaGallery for inner sections
+// Updated for Light Theme Compatibility (Dark borders)
 function SectionMediaGallery({ images, style }: { images?: string[], style?: 'slider' | 'grid' }) {
     if (!images || images.length === 0) return null;
 
-    // Grid implementation for sections - Responsive
+    // Grid implementation
     if (style === 'grid' || images.length <= 1) {
         return (
             <div className={`my-12 grid grid-cols-1 ${images.length >= 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-6`}>
                 {images.map((img, idx) => (
-                    <div key={idx} className="rounded-xl overflow-hidden border border-white/10 shadow-lg group relative">
-                        <MediaItem src={img} className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105" />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none" />
+                    <div key={idx} className="rounded-xl overflow-hidden border border-black/10 shadow-lg group relative aspect-video bg-black">
+                        <MediaItem src={img} className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105" />
                     </div>
                 ))}
             </div>
@@ -144,8 +124,8 @@ function SectionMediaGallery({ images, style }: { images?: string[], style?: 'sl
     return (
         <div className="my-12 flex gap-6 overflow-x-auto snap-x pb-6 no-scrollbar">
             {images.map((img, idx) => (
-                <div key={idx} className="min-w-[85%] md:min-w-[45%] rounded-xl overflow-hidden border border-white/10 snap-center shrink-0 shadow-lg">
-                    <MediaItem src={img} className="w-full h-auto object-contain" />
+                <div key={idx} className="w-full md:min-w-[45%] md:w-auto rounded-xl overflow-hidden border border-black/10 snap-center shrink-0 shadow-lg aspect-video bg-black">
+                    <MediaItem src={img} className="w-full h-full object-contain" />
                 </div>
             ))}
         </div>
@@ -158,21 +138,85 @@ export default function ProjectDetails() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('/data/projects.json')
-            .then((res) => res.json())
-            .then((data: Project[]) => {
-                const found = data.find((p) => p.id === id);
-                setProject(found || null);
-                setLoading(false);
-            })
-            .catch((err) => {
+        const fetchProject = async () => {
+            try {
+                // 1. Try fetching individual file (New System)
+                const res = await fetch(`/data/projects/${id}.json`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setProject(data);
+                    setLoading(false);
+                    return;
+                }
+
+                // 2024-12-21 Fallback: Check legacy projects.json for backward compatibility (e.g. id "1", "2")
+                console.warn(`Project file /data/projects/${id}.json not found. Trying legacy fallback.`);
+                const legacyRes = await fetch('/data/projects.json');
+                if (legacyRes.ok) {
+                    const legacyData: Project[] = await legacyRes.json();
+                    const found = legacyData.find(p => p.id === id);
+                    if (found) {
+                        setProject(found);
+                        setLoading(false);
+                        return;
+                    }
+                }
+                throw new Error(`Project '${id}' not found. Checked: /data/projects/${id}.json and legacy /data/projects.json`);
+
+            } catch (err: any) {
                 console.error("Failed to load project:", err);
+                setProject(null);
                 setLoading(false);
-            });
+                // Allow UI to show error if needed, but for now just logging.
+                // We'll update the render to show the ID that failed.
+            }
+        };
+
+        if (id) fetchProject();
     }, [id]);
 
-    if (loading) return <div className="min-h-screen bg-[#030303] flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-[var(--gold)]"></div></div>;
-    if (!project) return <div className="min-h-screen bg-[#030303] flex items-center justify-center text-white">Project Not Found</div>;
+    if (loading) return (
+        <div className="min-h-screen bg-[#050507] flex flex-col items-center justify-center relative overflow-hidden">
+            {/* Matrix / Cyberpunk Loading Effect */}
+            <div className="flex flex-col items-center gap-8 z-10">
+                <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    className="w-24 h-24 border-4 border-t-[var(--gold)] border-r-[var(--gold)]/30 border-b-[var(--gold)]/10 border-l-[var(--gold)]/60 rounded-full"
+                />
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0, 1, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                    className="text-[var(--gold)] font-mono text-sm tracking-[0.3em] uppercase"
+                >
+                    Extracting Project Data...
+                </motion.div>
+                <div className="flex gap-1 h-1">
+                    {[...Array(5)].map((_, i) => (
+                        <motion.div
+                            key={i}
+                            animate={{ scaleY: [1, 2.5, 1], backgroundColor: ["#333", "#d4af37", "#333"] }}
+                            transition={{ duration: 1, repeat: Infinity, delay: i * 0.1 }}
+                            className="w-1 h-full bg-gray-800"
+                        />
+                    ))}
+                </div>
+            </div>
+
+            {/* Background Data Stream Effect */}
+            <div className="absolute inset-0 opacity-10 pointer-events-none">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,var(--gold),transparent_70%)] blur-[120px]" />
+            </div>
+        </div>
+    );
+    if (!project) return (
+        <div className="min-h-screen bg-[#030303] flex flex-col items-center justify-center text-white gap-4">
+            <h2 className="text-3xl font-bold">Project Not Found</h2>
+            <p className="text-gray-400">Could not load project ID: <span className="text-[var(--gold)] font-mono">{String(id)}</span></p>
+            <a href="/projects" className="px-6 py-2 border border-white/20 rounded-full hover:bg-white/10 transition-colors">Back to Archive</a>
+        </div>
+    );
 
     // Support new and old fields
     const bgImage = project.heroImage || project.image || (project.thumbnails ? project.thumbnails[0] : "") || "";
@@ -255,8 +299,11 @@ export default function ProjectDetails() {
             )}
 
             {/* 3. ABOUT / SECTIONS (Super Power Markdown) */}
-            <section className="relative z-10 py-32 px-4 md:px-0 bg-[#030303]">
-                <div className="max-w-4xl mx-auto">
+            {/* White Marble Theme Transformation */}
+            <section className="relative z-10 py-32 px-4 md:px-0 bg-[#f8f9fa] text-black">
+                <div className="absolute inset-0 z-0 opacity-40 pointer-events-none" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/white-diamond.png")', backgroundSize: '200px' }}></div>
+
+                <div className="max-w-4xl mx-auto relative z-10">
                     {/* Render standard sections */}
                     {project.sections?.map((section, idx) => (
                         <motion.div
@@ -264,28 +311,45 @@ export default function ProjectDetails() {
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
-                            className="mb-32 last:mb-0 border-l border-white/10 pl-8 md:pl-12 relative"
+                            className="mb-32 last:mb-0 border-l-4 border-black/10 pl-6 md:pl-12 relative"
                         >
                             {/* Decorative line dot */}
-                            <div className="absolute left-[-1px] top-0 w-2 h-2 rounded-full bg-[var(--gold)] -translate-x-[3px]" />
+                            <div className="absolute left-[-2px] top-0 w-4 h-4 rounded-full bg-black -translate-x-[6px] border-4 border-white" />
 
                             {section.title && (
-                                <h2 className="text-4xl md:text-5xl font-bold text-white mb-10 tracking-tight">
+                                <h2 className="text-5xl md:text-7xl font-bold text-black mb-10 font-[family-name:var(--font-patrick)]">
                                     {section.title}
                                 </h2>
                             )}
 
-                            {/* Markdown Content - The "Super Power" Part */}
-                            <div className="prose prose-invert prose-lg md:prose-xl max-w-none 
-                                prose-headings:font-bold prose-headings:text-white prose-headings:tracking-tight
-                                prose-h1:text-5xl prose-h2:text-3xl prose-h3:text-2xl
-                                prose-p:text-gray-400 prose-p:leading-relaxed
-                                prose-a:text-[var(--gold)] prose-a:underline prose-a:decoration-[var(--gold)]/30 prose-a:underline-offset-4 hover:prose-a:decoration-[var(--gold)]
-                                prose-strong:text-white prose-strong:font-black
-                                prose-ul:list-disc prose-ul:pl-6 prose-li:text-gray-400 prose-li:marker:text-[var(--gold)]
-                                prose-blockquote:border-l-[var(--gold)] prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:not-italic
-                            ">
-                                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                            {/* Markdown Content - High Contrast Light Mode */}
+                            <div className="font-[family-name:var(--font-patrick)] text-[#1a1a1a] text-2xl leading-loose">
+                                <ReactMarkdown
+                                    remarkPlugins={[remarkGfm]}
+                                    components={{
+                                        // Force Override for Tables - Responsive Wrapper
+                                        table: ({ node, ...props }) => (
+                                            <div className="w-full overflow-x-auto my-8 rounded-lg border border-gray-200 shadow-sm">
+                                                <table className="w-full text-left border-collapse bg-white min-w-[600px] font-sans text-base" {...props} />
+                                            </div>
+                                        ),
+                                        thead: ({ node, ...props }) => <thead className="bg-[#f8f9fa] border-b-2 border-gray-300" {...props} />,
+                                        tbody: ({ node, ...props }) => <tbody className="divide-y divide-gray-200" {...props} />,
+                                        tr: ({ node, ...props }) => <tr className="hover:bg-gray-50 transition-colors" {...props} />,
+                                        th: ({ node, ...props }) => <th className="px-6 py-4 font-black uppercase text-sm tracking-wider text-black border-r border-gray-200 last:border-r-0" {...props} />,
+                                        td: ({ node, ...props }) => <td className="px-6 py-4 text-gray-700 border-r border-gray-200 last:border-r-0 font-medium" {...props} />,
+
+                                        // Typography Overrides
+                                        h1: ({ node, ...props }) => <h1 className="text-5xl md:text-6xl font-bold mb-8 mt-14 text-black" {...props} />,
+                                        h2: ({ node, ...props }) => <h2 className="text-4xl md:text-4xl font-bold mb-6 mt-12 text-black border-b-2 border-black/10 pb-2 inline-block" {...props} />,
+                                        h3: ({ node, ...props }) => <h3 className="text-3xl font-bold mb-5 mt-10 text-black" {...props} />,
+                                        p: ({ node, ...props }) => <p className="mb-6" {...props} />,
+                                        a: ({ node, ...props }) => <a className="text-[#d4af37] font-bold underline decoration-[#d4af37]/30 hover:bg-[#d4af37]/10 transition-colors rounded px-1 -mx-1" {...props} />,
+                                        ul: ({ node, ...props }) => <ul className="list-disc pl-6 mb-6 space-y-2 marker:text-[#d4af37]" {...props} />,
+                                        ol: ({ node, ...props }) => <ol className="list-decimal pl-6 mb-6 space-y-2" {...props} />,
+                                        blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-[#d4af37] bg-white/50 p-6 my-8 rounded-r-xl text-3xl text-gray-800" {...props} />,
+                                    }}
+                                >
                                     {section.content}
                                 </ReactMarkdown>
                             </div>
@@ -301,9 +365,9 @@ export default function ProjectDetails() {
                                             key={i}
                                             href={link.url}
                                             target="_blank"
-                                            className="px-6 py-3 border border-white/10 bg-white/5 text-white rounded-lg hover:bg-[var(--gold)] hover:text-black hover:border-[var(--gold)] transition-all text-sm font-semibold flex items-center gap-3 group"
+                                            className="px-8 py-3 bg-black text-white rounded-full hover:bg-[#333] transition-all shadow-lg hover:shadow-xl text-sm font-bold flex items-center gap-3 group transform hover:-translate-y-1"
                                         >
-                                            {link.label} <FaExternalLinkAlt className="text-xs group-hover:scale-110 transition-transform" />
+                                            {link.label} <FaExternalLinkAlt className="text-xs group-hover:scale-110 transition-transform text-[#d4af37]" />
                                         </a>
                                     ))}
                                 </div>
@@ -311,8 +375,8 @@ export default function ProjectDetails() {
                         </motion.div>
                     ))}
 
-                    <div className="mt-32 pt-16 border-t border-white/10">
-                        <a href="/projects" className="inline-flex items-center gap-3 text-gray-500 hover:text-[var(--gold)] transition-colors text-lg font-medium group">
+                    <div className="mt-32 pt-16 border-t border-black/10 text-center">
+                        <a href="/projects" className="inline-flex items-center gap-3 text-gray-500 hover:text-black transition-colors text-lg font-bold group">
                             <FaChevronLeft className="group-hover:-translate-x-1 transition-transform" /> Back to Gallery
                         </a>
                     </div>
