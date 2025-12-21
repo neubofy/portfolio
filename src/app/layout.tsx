@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Dancing_Script, Geist_Mono, Patrick_Hand } from "next/font/google"; // Switching to Dancing Script for "Beautiful" look
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const dancingScript = Dancing_Script({
@@ -54,6 +55,7 @@ export default function RootLayout({
           <FloatingActions />
           {children}
         </SmoothScroll>
+        <Analytics />
       </body>
     </html>
   );
