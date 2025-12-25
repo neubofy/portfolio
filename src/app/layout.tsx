@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import { Dancing_Script, Geist_Mono, Patrick_Hand } from "next/font/google"; // Switching to Dancing Script for "Beautiful" look
 import "./globals.css";
 
@@ -54,6 +55,7 @@ export default function RootLayout({
           <FloatingActions />
           {children}
         </SmoothScroll>
+        <Analytics />
       </body>
     </html>
   );

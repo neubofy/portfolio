@@ -1,0 +1,76 @@
+{
+    "id": "reality",
+    "title": "Reality - Digital Wellbeing App",
+    "description": "A privacy-first Android app to block distracting apps and websites. 100% offline, zero data collection, open source.",
+    "tags": [
+        "Android",
+        "Kotlin",
+        "Privacy",
+        "Open Source"
+    ],
+    "liveLink": "https://github.com/pawanwashudev-official/Reality",
+    "thumbnail": "/images/reality-thumbnail.png",
+    "heroImage": "/images/reality-hero.png",
+    "gallery": [
+        "/images/reality-hero.png",
+        "/images/reality-terminal.png",
+        "/images/reality_privacy_concept.png"
+    ],
+    "sections": [
+        {
+            "title": "Overview",
+            "content": "**Reality** is a powerful digital wellbeing app designed to help users take control of their screen time and stay focused. Unlike other apps, Reality prioritizes privacy above everything else.\n\n### Key Highlights\n- 🔒 **100% Offline** - No internet permission, works completely offline\n- 📵 **Zero Data Collection** - We don't know who uses the app\n- 💯 **Open Source** - Every line of code is public on GitHub\n- 🚫 **No Ads** - Clean, distraction-free experience",
+            "links": [
+                {
+                    "label": "View on GitHub",
+                    "url": "https://github.com/pawanwashudev-official/Reality"
+                },
+                {
+                    "label": "Privacy Policy",
+                    "url": "https://realityprivicypolicy.vercel.app"
+                }
+            ]
+        },
+        {
+            "title": "Features & Interface",
+            "content": "### 🎯 Focus Mode & Stats\nStart focus sessions instantly. Monitor daily usage limits and track your digital habits with detailed graphs.\n\n### 🌐 Blocklist Management\nEasily manage blocked apps and websites. The selection interface is clean, fast, and intuitive.\n\n### 📟 Live Terminal Transparency\n**Unique to Reality:** A comprehensive terminal log right on the dashboard shows you exactly what the app is doing in the background.",
+            "images": [
+                "/images/Realitysc1.jpg",
+                "/images/Realitysc2.jpg",
+                "/images/Realitysc3.jpg",
+                "/images/Realitysc4.jpg"
+            ],
+            "imageStyle": "slider"
+        },
+        {
+            "title": "Privacy First",
+            "content": "Reality is built with **privacy as the core principle**. Here's what makes it different:\n\n| Feature | Reality | Other Apps |\n|---------|---------|------------|\n| Background Visibility | ✅ Live Terminal | ❌ Hidden |\n| Internet Permission | ❌ None | ✅ Required |\n| Data Collection | ❌ Zero | ✅ Analytics |\n| Account Required | ❌ No | ✅ Often |\n| Ads | ❌ None | ✅ Common |\n\n> *\"Trust, but verify. The built-in terminal lets you verify exactly how Reality protects your focus.\"*",
+            "images": [
+                "/images/reality_focus_concept.png"
+            ],
+            "imageStyle": "grid"
+        },
+        {
+            "title": "Technical Stack",
+            "content": "### Built With\n- **Language**: Kotlin\n- **Architecture**: MVVM with Android Architecture Components\n- **Database**: Room (local storage only)\n- **UI**: Material Design 3 with custom dark theme\n- **Background Processing**: WorkManager\n- **Accessibility**: Custom Accessibility Service for app detection\n\n### Requirements\n- Android 8.0 (API 26) or higher\n- No internet connection required"
+        },
+        {
+            "title": "Downloads & Links",
+            "content": "Reality is available for download on GitHub Releases. It's free and open source forever.",
+            "links": [
+                {
+                    "label": "Download APK",
+                    "url": "https://github.com/pawanwashudev-official/Reality/releases/download/v1.0.0/Reality-v1.0.0-release.apk"
+                },
+                {
+                    "label": "Source Code",
+                    "url": "https://github.com/pawanwashudev-official/Reality"
+                },
+                {
+                    "label": "Privacy Policy",
+                    "url": "https://realityprivicypolicy.vercel.app"
+                }
+            ]
+        }
+    ]
+}
