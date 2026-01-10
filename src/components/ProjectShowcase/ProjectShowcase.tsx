@@ -15,6 +15,7 @@ interface Project {
     liveLink?: string;
     thumbnail?: string;
     heroImage?: string;
+    featured?: boolean;  // If true, shows on homepage
 }
 
 const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
@@ -173,9 +174,9 @@ export default function ProjectShowcase() {
                     </p>
                 </div>
 
-                {/* Vertical List "Floating in River" */}
+                {/* Vertical List \"Floating in River\" */}
                 <div className="flex flex-col">
-                    {projects.slice(0, 3).map((project, index) => (
+                    {projects.filter(p => p.featured).map((project, index) => (
                         <ProjectCard key={project.id} project={project} index={index} />
                     ))}
                 </div>

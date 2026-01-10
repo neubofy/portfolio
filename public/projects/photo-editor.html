@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Editor - Professional Web Studio</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ============================================
+           🎨 PHOTO EDITOR THEME - CREATIVE STUDIO
+           ============================================ */
+        :root {
+            --primary: #f43f5e;
+            /* Rose */
+            --secondary: #fb7185;
+            /* Light Rose */
+            --accent: #fda4af;
+            /* Blush */
+            --bg-dark: #120f13;
+            --bg-panel: #1a161b;
+            --text-primary: #fff1f2;
+            --text-secondary: #9f1239;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* mesh gradient background */
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background:
+                radial-gradient(at 10% 10%, rgba(244, 63, 94, 0.15) 0%, transparent 60%),
+                radial-gradient(at 90% 90%, rgba(251, 113, 133, 0.1) 0%, transparent 60%);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(18, 15, 19, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-style: italic;
+            color: var(--primary);
+        }
+
+        .back-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff, var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: #d1d5db;
+            max-width: 700px;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .cta-btn {
+            padding: 1rem 2.5rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px -10px var(--primary);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px -10px var(--primary);
+        }
+
+        /* Features Grid */
+        .features {
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--bg-panel);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .icon {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .feature-card p {
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+
+        /* Stats Strip */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            padding: 4rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+        }
+
+        .stat h3 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat p {
+            color: #6b7280;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            color: #6b7280;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mesh-bg"></div>
+
+    <nav>
+        <div class="logo">PhotoEditor</div>
+        <a href="/projects" class="back-btn">← Back</a>
+    </nav>
+
+    <header class="hero">
+        <h1>Visual Studio<br>for Photos</h1>
+        <p class="subtitle">
+            A high-performance, client-side image workspace. Edit, filter, and transform with Photoshop-grade precision
+            directly in your browser.
+        </p>
+
+        <a href="https://photoeditor.neubofy.bar" target="_blank" class="cta-btn">Start Editing</a>
+    </header>
+
+    <section class="stats">
+        <div class="stat">
+            <h3>
+                <16ms< /h3>
+                    <p>Render Latency</p>
+        </div>
+        <div class="stat">
+            <h3>100%</h3>
+            <p>Client-Side</p>
+        </div>
+        <div class="stat">
+            <h3>4K+</h3>
+            <p>Export Support</p>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="grid">
+            <div class="feature-card">
+                <div class="icon">⚡</div>
+                <h3>WebGL Engine</h3>
+                <p>Hardware-accelerated processing for instant filters and adjustments, even on high-resolution
+                    photography.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">🎨</div>
+                <h3>Smart Layers</h3>
+                <p>Non-destructive workflow with adjustable layers for text, shapes, and complex compositions.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">🔒</div>
+                <h3>Privacy First</h3>
+                <p>Zero server uploads. All processing happens locally on your device for maximum security.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">🪄</div>
+                <h3>AI Filters</h3>
+                <p>Next-gen presets and auto-enhance capabilities powered by lightweight browser-based inference.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Built by <a href="/">Pawan Washudev</a> • <a
+                href="https://github.com/pawanwashudev-official/Neubofy-Photo-Editor" target="_blank">View Code</a></p>
+    </footer>
+</body>
+
+</html>

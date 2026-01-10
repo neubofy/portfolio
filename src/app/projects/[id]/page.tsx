@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, ComponentType } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Navbar from "@/components/Navbar";
 import { useParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronLeft, FaExternalLinkAlt } from 'react-icons/fa';
+import { hasCustomComponent, getProjectComponent } from '@/projects';
 
 interface ProjectSection {
     title?: string;
@@ -134,14 +135,45 @@ function SectionMediaGallery({ images, style }: { images?: string[], style?: 'sl
 
 export default function ProjectDetails() {
     const { id } = useParams();
+    const projectId = typeof id === 'string' ? id : '';
+
     const [project, setProject] = useState<Project | null>(null);
     const [loading, setLoading] = useState(true);
+    const [CustomComponent, setCustomComponent] = useState<ComponentType | null>(null);
+    const [staticHtmlUrl, setStaticHtmlUrl] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchProject = async () => {
+        const loadProject = async () => {
+            // PRIORITY 1: Check for static HTML file in public/projects/
             try {
-                // 1. Try fetching individual file (New System)
-                const res = await fetch(`/data/projects/${id}.json`);
+                const htmlRes = await fetch(`/projects/${projectId}.html`, { method: 'HEAD' });
+                if (htmlRes.ok) {
+                    setStaticHtmlUrl(`/projects/${projectId}.html`);
+                    setLoading(false);
+                    return;
+                }
+            } catch (err) {
+                // Static HTML not found, continue to next priority
+            }
+
+            // PRIORITY 2: Check for custom React component
+            if (projectId && hasCustomComponent(projectId)) {
+                try {
+                    const componentLoader = getProjectComponent(projectId);
+                    if (componentLoader) {
+                        const module = await componentLoader();
+                        setCustomComponent(() => module.default);
+                        setLoading(false);
+                        return;
+                    }
+                } catch (err) {
+                    console.error("Failed to load custom component:", err);
+                }
+            }
+
+            // PRIORITY 3: Fallback to JSON-based template
+            try {
+                const res = await fetch(`/data/projects/${projectId}.json`);
                 if (res.ok) {
                     const data = await res.json();
                     setProject(data);
@@ -149,31 +181,42 @@ export default function ProjectDetails() {
                     return;
                 }
 
-                // 2024-12-21 Fallback: Check legacy projects.json for backward compatibility (e.g. id "1", "2")
-                console.warn(`Project file /data/projects/${id}.json not found. Trying legacy fallback.`);
+                // Legacy fallback
+                console.warn(`Project file /data/projects/${projectId}.json not found. Trying legacy fallback.`);
                 const legacyRes = await fetch('/data/projects.json');
                 if (legacyRes.ok) {
                     const legacyData: Project[] = await legacyRes.json();
-                    const found = legacyData.find(p => p.id === id);
+                    const found = legacyData.find(p => p.id === projectId);
                     if (found) {
                         setProject(found);
                         setLoading(false);
                         return;
                     }
                 }
-                throw new Error(`Project '${id}' not found. Checked: /data/projects/${id}.json and legacy /data/projects.json`);
+                throw new Error(`Project '${projectId}' not found.`);
 
             } catch (err: any) {
                 console.error("Failed to load project:", err);
                 setProject(null);
                 setLoading(false);
-                // Allow UI to show error if needed, but for now just logging.
-                // We'll update the render to show the ID that failed.
             }
         };
 
-        if (id) fetchProject();
-    }, [id]);
+        if (projectId) loadProject();
+    }, [projectId]);
+
+    // If static HTML file exists, redirect directly to it (instant navigation)
+    if (staticHtmlUrl) {
+        if (typeof window !== 'undefined') {
+            window.location.replace(staticHtmlUrl);
+            return null;
+        }
+    }
+
+    // If custom component exists, render it directly
+    if (CustomComponent) {
+        return <CustomComponent />;
+    }
 
     if (loading) return (
         <div className="min-h-screen bg-[#050507] flex flex-col items-center justify-center relative overflow-hidden">

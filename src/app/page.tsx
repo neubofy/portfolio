@@ -15,7 +15,7 @@ import CallToAction from "@/components/CallToAction";
 export default function Home() {
 
   return (
-    <main className="min-h-screen text-white overflow-hidden selection:bg-[var(--gold)] selection:text-black">
+    <main className="min-h-screen text-white selection:bg-[var(--gold)] selection:text-black">
       <Navbar />
 
       <Hero />

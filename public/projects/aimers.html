@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aimers - Student Ecosystem</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ============================================
+           🎨 AIMERS THEME - CONNECTED ECOSYSTEM
+           ============================================ */
+        :root {
+            --primary: #4f46e5;
+            /* Indigo-600 */
+            --secondary: #8b5cf6;
+            /* Violet-500 */
+            --accent: #22d3ee;
+            /* Cyan-400 */
+            --bg-dark: #0b0f19;
+            /* Deep Navy */
+            --bg-card: #151b2b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Archivo', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(79, 70, 229, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(34, 211, 238, 0.05) 0%, transparent 50%);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -0.05em;
+            background: linear-gradient(to right, white, var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .back-btn {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            border-color: var(--primary);
+            color: white;
+            background: rgba(79, 70, 229, 0.1);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 1rem;
+            position: relative;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            background: rgba(79, 70, 229, 0.15);
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            border-radius: 50px;
+            color: #818cf8;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.25rem);
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin-bottom: 3.5rem;
+            line-height: 1.7;
+        }
+
+        /* Ecosystem Grid */
+        .ecosystem {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 1rem;
+        }
+
+        .eco-card {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .eco-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Glow effect on hover */
+        .eco-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.1), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .eco-card:hover::before {
+            opacity: 1;
+        }
+
+        .eco-icon {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .eco-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .eco-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            background: #0d121f;
+            margin-top: 6rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feat-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .feat-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 6rem;
+        }
+
+        .feat-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .feat-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .feat-content p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+        }
+
+        .feat-list {
+            list-style: none;
+        }
+
+        .feat-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #cbd5e1;
+        }
+
+        .check {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(34, 211, 238, 0.2);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .tech-box {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #a5b4fc;
+        }
+
+        @media (max-width: 1024px) {
+            .ecosystem {
+                grid-template-columns: 1fr;
+            }
+
+            .feat-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">AIMERS.</div>
+        <a href="/projects" class="back-btn">← Projects</a>
+    </nav>
+
+    <header class="hero">
+        <div class="pill">🚀 Ultimate Student Monitoring Ecosystem</div>
+
+        <h1>Intelligent Self-Monitoring<br>Cross-Platform System</h1>
+
+        <p class="subtitle">
+            A unified learning ecosystem integrating <strong>Android, Web, and AI</strong>. Seamlessly syncing with
+            Google Workspace APIs to track habits, optimize schedules, and personalize academic growth.
+        </p>
+
+        <div class="ecosystem">
+            <div class="eco-card">
+                <span class="eco-icon">📱</span>
+                <h3>Android & Web Sync</h3>
+                <p>Native mobile app for on-the-go tracking and desktop web dashboard for deep analytics. <span
+                        class="highlight">One account, all devices.</span></p>
+            </div>
+
+            <div class="eco-card">
+                <span class="eco-icon">🧠</span>
+                <h3>AI-Driven Insights</h3>
+                <p>Analyzes your study patterns, detects weaknesses, and recommends actionable steps to <span
+                        class="highlight">optimize your learning curve.</span></p>
+            </div>
+
+            <div class="eco-card">
+                <span class="eco-icon">☁️</span>
+                <h3>Google Workspace Core</h3>
+                <p>Deep integration with <span class="highlight">Classroom, Drive, Calendar, and Meet</span> APIs for a
+                    fully automated academic workflow.</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="features">
+        <div class="feat-container">
+            <!-- Feature 1 -->
+            <div class="feat-row">
+                <div class="feat-content">
+                    <h2>The Connected Cloud</h2>
+                    <p>Why switch between 5 different apps? Aimers brings everything into one dashboard. Your
+                        assignments from Classroom, notes from Drive, and schedule from Calendar—all synchronized
+                        instantly.</p>
+                    <ul class="feat-list">
+                        <li><span class="check">✓</span> Auto-sync Assignments to Calendar</li>
+                        <li><span class="check">✓</span> Real-time Gmail Notifications</li>
+                        <li><span class="check">✓</span> One-click Meet Sessions</li>
+                    </ul>
+                </div>
+                <div class="tech-box">
+                    // API Integration Layer<br>
+                    <span style="color: #c084fc">const</span> workspace = <span style="color: #22d3ee">await</span>
+                    google.connect({<br>
+                    &nbsp;&nbsp;services: [<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;'classroom.courses.readonly',<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;'calendar.events.write',<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;'drive.files.read'<br>
+                    &nbsp;&nbsp;]<br>
+                    });
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="feat-row">
+                <div class="tech-box" style="border-color: var(--secondary);">
+                    // AI Analysis Engine<br>
+                    <span style="color: #c084fc">function</span> analyzeHabits(userLogs) {<br>
+                    &nbsp;&nbsp;<span style="color: #818cf8">if</span> (focusTime < 45) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #22d3ee">return</span> "Suggest Pomodoro
+                        Technique";<br>
+                        &nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;<span style="color: #818cf8">return</span> "Optimize Break Schedule";<br>
+                        }
+                </div>
+                <div class="feat-content">
+                    <h2>Smart Habit Tracking</h2>
+                    <p>It doesn't just record what you do—it understands it. The AI engine monitors your study hours,
+                        consistency, and task completion rates to generate personalized weekly reports.</p>
+                    <ul class="feat-list">
+                        <li><span class="check">✓</span> Proactive Performance Alerts</li>
+                        <li><span class="check">✓</span> Weakness Identification</li>
+                        <li><span class="check">✓</span> Personalized Resource Suggestions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 4rem; color: var(--text-secondary); font-size: 0.9rem;">
+        <p>Built with Kotlin, React, Node.js & TensorFlow • <a href="https://github.com/pawanwashudev-official/aimers"
+                style="color: white; text-decoration: none;">View Source</a></p>
+    </footer>
+</body>
+
+</html>

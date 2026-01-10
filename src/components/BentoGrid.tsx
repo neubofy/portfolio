@@ -30,22 +30,22 @@ export default function BentoGrid() {
                                 <span className="p-3 rounded-xl bg-[var(--gold)]/10 text-[var(--gold)]">
                                     <FaBrain className="text-2xl" />
                                 </span>
-                                <h3 className="text-3xl font-bold text-white">AI-Native Architect</h3>
+                                <h3 className="text-3xl font-bold text-white">The Vibe Coder</h3>
                             </div>
                             <p className="text-gray-300 text-xl leading-relaxed mb-6">
-                                Since <b>December 2022</b>, I have not just used AI; I have merged with it. I command the full potential of Artificial Intelligence with <b>human perfection</b> to build systems that were previously impossible.
+                                I don't write code—I <b>orchestrate AI</b> to build it. As an <b>AI-First Developer</b>, I focus on what truly matters: <b>innovative logic, unique ideas, and absolute perfection</b>. The syntax? AI handles that.
                             </p>
                             <p className="text-gray-300 text-xl leading-relaxed">
-                                I am a <b>Vibe Coding Expert</b> with 3+ years of raw development experience. I know exactly where AI falters and where my expertise must intervene. The result? <b>Flawless, top-notch digital architectures.</b>
+                                While others debate languages and frameworks, I'm <b>shipping production-ready apps</b>—leveraging multiple AI models, ensuring security standards, and building with cutting-edge tech. <b>Speed without compromise.</b>
                             </p>
                         </div>
 
                         <div className="flex gap-4 mt-8">
                             <div className="px-5 py-3 rounded-full bg-white/5 border border-white/5 text-sm font-mono text-[var(--gold)]">
-                                #Perfectionist
+                                #VibeCoder
                             </div>
                             <div className="px-5 py-3 rounded-full bg-white/5 border border-white/5 text-sm font-mono text-[var(--gold)]">
-                                #ImageGeneration
+                                #AIFirst
                             </div>
                         </div>
                     </TiltCard>
@@ -93,10 +93,10 @@ export default function BentoGrid() {
                         <div className="absolute inset-0 bg-gradient-to-r from-[var(--gold)]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                         <div className="flex items-center gap-4 mb-4">
                             <FaGem className="text-3xl text-[var(--gold)]" />
-                            <h3 className="text-2xl font-bold text-white">The "Vibe" Methodology</h3>
+                            <h3 className="text-2xl font-bold text-white">The "Vibe" Philosophy</h3>
                         </div>
                         <p className="text-gray-400 leading-relaxed">
-                            It's not just about asking an LLM to write code. It's about <b>Prompt Engineering</b> at a master level. I orchestrate AI to verify logic, generate top-notch landing pages, and optimize visuals, while I ensure the structural integrity remains <b>world-class</b>.
+                            I harness AI like a <b>power tool</b>—not a crutch. Multiple models cross-checking each other, security audits automated, latest libraries always. I focus on the <b>vision and architecture</b>; AI accelerates the execution. Result? <b>World-class products, shipped fast.</b>
                         </p>
                     </TiltCard>
                 </motion.div>
@@ -136,7 +136,7 @@ export default function BentoGrid() {
                             <FaRocket className="text-[var(--gold)]" /> High-Performance Delivery
                         </h3>
                         <div className="flex flex-wrap gap-4 text-gray-300">
-                            {["React", "Next.js", "Tailwind CSS", "TypeScript", "Node.js"].map((tech) => (
+                            {["React", "Next.js", "Vite", "Kotlin", "React Native", "n8n", "RAG"].map((tech) => (
                                 <span key={tech} className="text-xl border-b border-blue-400/30 pb-1">
                                     {tech}
                                 </span>

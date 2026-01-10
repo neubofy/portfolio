@@ -1,56 +1,13 @@
 {
-    "id": "2",
-    "title": "Aimers Intelligence (StudyOS)",
-    "description": "A proprietary, closed-loop study lifecycle manager. Integrates Google Workspace with a 'Flow State' fluid UI.",
+    "id": "aimers",
+    "title": "Aimers Ecosystem",
+    "description": "The ultimate student monitoring system. Integrating Android, Web, AI, and Google Workspace for a connected learning experience.",
     "tags": [
-        "Google Apps Script",
-        "React",
-        "Algorithms",
-        "Automation"
+        "Android",
+        "Web",
+        "Google Workspace",
+        "AI"
     ],
-    "liveLink": "https://aimers.neubofy.bar",
-    "thumbnail": "/images/aimers-ui.png",
-    "heroImage": "/images/aimers-dashboard.png",
-    "gallery": [
-        "/images/aimers-dashboard.png",
-        "/images/aimers-showcase.png",
-        "/images/aimers-ui.png"
-    ],
-    "sections": [
-        {
-            "title": "The 'Second Brain' Ecosystem",
-            "content": "This isn't just a timer. It's a **Study Operating System** that lives where I work.\n\n### The Workflow\n1. **Planning**: Every night, I write my diary and next-day plan in a **Google Doc**.\n2. **Sync**: At **11:45 PM**, a custom script runs, parsing the doc and syncing tasks to my Calendar.\n3. **Execution**: The next day, the `aimers.neubofy.bar` dashboard reads these Calendar events to set my daily targets.",
-            "images": [],
-            "links": [
-                {
-                    "label": "View Workflow Schematic",
-                    "url": "#"
-                }
-            ]
-        },
-        {
-            "title": "The Liquid UI & Flow State",
-            "content": "The dashboard features a **Dynamic Water-Filling Animation**. \n\n- It acts as a hybrid **Stopwatch/Timer**.\n- As I study, the water rises to match the percentage of my daily target achieved.\n- This visual feedback loop is directly synced with the Google Calendar events, adjusting in real-time if my schedule changes.",
-            "images": [
-                "/images/aimers-ui.png",
-                "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?q=80&w=1000&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop"
-            ],
-            "imageStyle": "slider"
-        },
-        {
-            "title": "AI-Powered Accountability",
-            "content": "I built a **Podcast Generator** pipeline. \n\nThe system reads my daily reflection Doc and execution data, then uses GenAI to synthesize a **Podcast-Style Audio Summary** sent to my email each morning. \n\n> *It acts as a brutally honest accountability partner, 'roasting' me if my 'Planned vs. Actual' algorithm detects slack.*",
-            "images": [
-                "/images/aimers-ui.png"
-            ],
-            "imageStyle": "grid",
-            "links": [
-                {
-                    "label": "Listen to Bio-Roast",
-                    "url": "#"
-                }
-            ]
-        }
-    ]
+    "thumbnail": "/images/aimers-thumb.png",
+    "featured": true
 }

@@ -1,0 +1,13 @@
+{
+    "id": "instantdeploy",
+    "title": "InstantDeploy",
+    "description": "Zero-config deployment tool. Code, zip, and deploy static sites instantly from the browser.",
+    "tags": [
+        "Vanilla JS",
+        "DevTool",
+        "No-Build"
+    ],
+    "thumbnail": "/images/instantdeploy-thumb.png",
+    "liveLink": "https://instantdeploy.vercel.app",
+    "featured": true
+}

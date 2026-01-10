@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reality - Master Your Focus</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ============================================
+           🎨 REALITY THEME - MILITARY GRADE FOCUS
+           ============================================ */
+        :root {
+            --primary: #fca311;
+            /* Signal Orange */
+            --bg-dark: #000000;
+            /* Pure Black */
+            --bg-panel: #111111;
+            /* Dark Grey */
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Grid Background */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .logo {
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+            letter-spacing: 2px;
+        }
+
+        .back {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .back:hover {
+            color: white;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-tag {
+            color: var(--primary);
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 800;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
+
+        .highlight {
+            color: var(--primary);
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin-bottom: 4rem;
+            line-height: 1.5;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 4rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 4rem;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            padding: 1rem 3rem;
+            background: white;
+            color: black;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1rem;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary);
+            transform: scale(1.05);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 2rem;
+            position: relative;
+            z-index: 10;
+            background: var(--bg-panel);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2px;
+            background: #222;
+            border: 1px solid #222;
+        }
+
+        .feature-card {
+            background: var(--bg-dark);
+            padding: 3rem;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            background: #1a1a1a;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Tech Specs */
+        .tech-specs {
+            padding: 8rem 2rem;
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+
+        .tech-list {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+
+        .tech-pill {
+            padding: 0.5rem 1.5rem;
+            border: 1px solid #333;
+            color: #888;
+            font-family: monospace;
+            text-transform: uppercase;
+        }
+
+        footer {
+            padding: 4rem;
+            text-align: center;
+            color: #444;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        footer a {
+            color: #666;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid-bg"></div>
+
+    <nav>
+        <div class="logo">REALITY</div>
+        <a href="/projects" class="back">/// BACK</a>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-tag">Digital Wellness Ecosystem</div>
+        <h1>Master Your <span class="highlight">Focus</span></h1>
+        <p class="subtitle">
+            The world's most powerful digital wellbeing interface. Military-grade blocking, zero data collection, and
+            unbreakable strict mode. Reclaim your reality.
+        </p>
+
+        <div class="stats-row">
+            <div class="stat-item">
+                <h3>0%</h3>
+                <p>Data Collection</p>
+            </div>
+            <div class="stat-item">
+                <h3>100%</h3>
+                <p>Open Source</p>
+            </div>
+            <div class="stat-item">
+                <h3>Offline</h3>
+                <p>First Architecture</p>
+            </div>
+        </div>
+
+        <a href="https://github.com/pawanwashudev-official/Reality" target="_blank" class="btn-primary">View Source</a>
+    </header>
+
+    <section class="features">
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Military-Grade Blocking</h3>
+                <p>Hybrid accessibility service layering makes app and website blocking virtually unbreakable. Strict
+                    Mode prevents uninstalls during active sessions.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Privacy Absolute</h3>
+                <p>No servers. No analytics. No accounts. Your data never leaves your device. Designed for the
+                    privacy-conscious 1%.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📅</div>
+                <h3>Intelligent Sync</h3>
+                <p>Seamlessly integrates with Google Calendar API in the background. Automate focus sessions based on
+                    your scheduled events.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Kotlin Native</h3>
+                <p>Built purely in Kotlin for maximum performance. Uses Room Config, WorkManager, and System Services
+                    for minimal battery impact.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="tech-specs">
+        <h2 style="font-family: 'Syncopate', sans-serif; text-transform: uppercase; letter-spacing: 2px;">Core
+            Architecture</h2>
+        <div class="tech-list">
+            <div class="tech-pill">Kotlin</div>
+            <div class="tech-pill">Android Native</div>
+            <div class="tech-pill">Room Database</div>
+            <div class="tech-pill">WorkManager</div>
+            <div class="tech-pill">Google Calendar API</div>
+            <div class="tech-pill">Accessibility Services</div>
+            <div class="tech-pill">Broadcast Receivers</div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Built by Pawan Washudev • <a href="https://github.com/pawanwashudev-official/Reality"
+                target="_blank">Repository</a></p>
+    </footer>
+</body>
+
+</html>

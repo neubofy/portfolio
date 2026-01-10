@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPS - Official School Platform</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ============================================
+           🎨 SPS THEME - ACADEMIC PRESTIGE
+           ============================================ */
+        :root {
+            --primary: #1e3a8a;
+            /* Royal Blue */
+            --secondary: #fbbf24;
+            /* Gold/Amber */
+            --accent: #3b82f6;
+            /* Blue Accent */
+            --bg-light: #ffffff;
+            --bg-dark: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .hero-img {
+            width: 100%;
+            max-width: 1000px;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(30, 58, 138, 0.15);
+            margin-top: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* Tech Stack */
+        .tech-strip {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .tech-pill {
+            padding: 0.5rem 1rem;
+            background: #f1f5f9;
+            color: var(--text-secondary);
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        /* Features */
+        .impact-section {
+            padding: 6rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .impact-item h3 {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            background: #f8fafc;
+        }
+
+        .link-group {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .impact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <span>SPS</span>
+            <span style="font-size: 0.9rem; opacity: 0.6; font-family: 'Plus Jakarta Sans'">Official Platform</span>
+        </div>
+        <a href="/projects" class="back-btn">← Back</a>
+    </nav>
+
+    <header class="hero">
+        <div class="badge">
+            🏆 Official Institutional Platform
+        </div>
+
+        <h1>Students Public School</h1>
+
+        <p class="subtitle">
+            I built the official digital ecosystem for my own school. A modern, high-performance platform handling
+            admissions, academic showcases, and campus life.
+        </p>
+
+        <div class="tech-strip">
+            <span class="tech-pill">Next.js 14</span>
+            <span class="tech-pill">Framer Motion</span>
+            <span class="tech-pill">Tailwind CSS</span>
+            <span class="tech-pill">TypeScript</span>
+        </div>
+
+        <a href="https://studentspublicschool.vercel.app" target="_blank" class="back-btn"
+            style="background: var(--primary); color: white;">
+            Visit Official Site
+        </a>
+    </header>
+
+    <section class="impact-section">
+        <div class="impact-grid">
+            <div class="impact-item">
+                <h3>100%</h3>
+                <p>Digital Transformation</p>
+            </div>
+            <div class="impact-item">
+                <h3>V1.0</h3>
+                <p>Official Release</p>
+            </div>
+            <div class="impact-item">
+                <h3>Next.js</h3>
+                <p>Modern Architecture</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="link-group">
+            <a href="https://github.com/pawanwashudev-official/sps" target="_blank">View Source Code</a>
+            <a href="https://studentspublicschool.vercel.app" target="_blank">Live Site</a>
+        </div>
+        <p style="color: #94a3b8; font-size: 0.9rem;">Built with pride by Pawan Washudev</p>
+    </footer>
+</body>
+
+</html>

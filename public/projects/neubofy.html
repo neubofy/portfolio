@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neubofy - The AI App Store</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ============================================
+           🎨 NEUBOFY THEME - INDIGO TECH / AI STUDIO
+           ============================================ */
+        :root {
+            --primary: #6366f1;
+            /* Indigo */
+            --primary-glow: #818cf8;
+            /* Light Indigo */
+            --bg-dark: #0f172a;
+            /* Slate 900 */
+            --bg-card: #1e293b;
+            /* Slate 800 */
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #c084fc;
+            /* Purple */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Ambient Glow Background */
+        .glow-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background:
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(192, 132, 252, 0.15) 0px, transparent 50%);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, white, var(--primary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pill {
+            padding: 0.25rem 0.75rem;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 50px;
+            color: var(--primary-glow);
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.04em;
+            background: linear-gradient(to bottom, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        /* Tech Stack Grid */
+        .tech-grid {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .tech-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+
+        .bun-icon {
+            background: #fbf0df;
+        }
+
+        .react-icon {
+            background: #61dafb;
+        }
+
+        .radix-icon {
+            background: white;
+        }
+
+        .cta-btn {
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(99, 102, 241, 0.5);
+        }
+
+        /* Metrics / Architecture */
+        .grid-section {
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-snippet {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: #a5b4fc;
+            overflow-x: auto;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="glow-bg"></div>
+
+    <nav>
+        <div class="logo">neubofy_ai</div>
+        <a href="/projects" class="back-btn">← Back to Projects</a>
+    </nav>
+
+    <section class="hero">
+        <div class="pill">✨ The AI-First App Store</div>
+
+        <h1>Neubofy</h1>
+        <p class="subtitle">
+            The premier marketplace for AI tools. An entire ecosystem built on Bun, React, and Supabase for the next
+            generation of intelligent implementation.
+        </p>
+
+        <div class="tech-grid">
+            <div class="tech-item"><span class="tech-icon bun-icon"></span> Bun Runtime</div>
+            <div class="tech-item"><span class="tech-icon react-icon"></span> React + Vite</div>
+            <div class="tech-item"><span class="tech-icon radix-icon"></span> Radix UI</div>
+            <div class="tech-item"><span class="tech-icon">⚡</span> TanStack Query</div>
+        </div>
+
+        <a href="https://neubofy.bar" target="_blank" class="cta-btn">Launch Studio</a>
+    </section>
+
+    <section class="grid-section">
+        <div class="bento-grid">
+            <div class="card">
+                <h3>🚀 High-Performance Hub</h3>
+                <p>Built on the Bun runtime for sub-millisecond start times. The fastest AI distribution platform on the
+                    market.</p>
+                <div class="code-snippet">
+                    $ bun run build<br>
+                    > Built in 40ms ⚡
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🧩 Component Architecture</h3>
+                <p>Uses Radix UI primitives for unstyled, accessible core components, styled with Tailwind for a
+                    futuristic feel.</p>
+                <div class="code-snippet">
+                    import { Slot } from '@radix-ui/react-slot'<br>
+                    import { cva } from 'class-variance-authority'
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📡 Real-Time Data</h3>
+                <p>Powered by TanStack Query for instant state synchronization across the entire ecosystem.</p>
+                <div class="code-snippet">
+                    const { data } = useQuery({ queryKey: ['apps'] })
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <a href="https://github.com/pawanwashudev-official/neubofy-ai-studio" target="_blank">View GitHub Repo</a>
+        <a href="https://neubofy.bar" target="_blank">Launch App</a>
+    </footer>
+</body>
+
+</html>

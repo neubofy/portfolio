@@ -1,46 +1,13 @@
 {
-    "id": "1",
+    "id": "neubofy",
     "title": "Neubofy",
-    "description": "The 'App Store' for the AI-First generation. A distribution ecosystem designed for student developers who 'Vibe Code'.",
+    "description": "The 'App Store' for the AI-First generation. Distribution ecosystem for student developers.",
     "tags": [
         "Next.js",
         "Supabase",
-        "Tailwind CSS",
-        "Distribution Infra"
+        "Tailwind CSS"
     ],
+    "thumbnail": "/images/neubofy-thumb.png",
     "liveLink": "https://neubofy.bar",
-    "thumbnail": "/images/neubofy-thumbnail.png",
-    "heroImage": "/images/NEUBOFYsummry.png",
-    "gallery": [
-        "/images/NEUBOFYsummry.png",
-        "/images/neubofy_marketplace_grid_1765115469048.png",
-        "/images/neubofy_architecture_diagram_1765115521934.png"
-    ],
-    "sections": [
-        {
-            "title": "The Manifesto",
-            "content": "### The Problem\nWe are witnessing the rise of the **'AI-First' Developer**—students who can build incredible tools at lightning speed using LLMs. However, they fail at one critical step: **Distribution**.\n\n### The Solution\n**Neubofy** bridges this gap. It serves as a specialized, curated marketplace for these high-signal tools. \n\n> *\"You focus on building. We handle the visibility, community trust, and distribution.\"*\n\nUnlike Product Hunt, which is noisy and generic, Neubofy is laser-focused on student-built AI utilities.",
-            "images": []
-        },
-        {
-            "title": "Engineering & Architecture",
-            "content": "Built for scale and velocity. The platform uses a modern stack to handle high-traffic launches.\n\n- **Frontend**: Next.js 14 (App Router) for SEO and performance.\n- **Backend**: Supabase for real-time auth and database capabilities.\n- **Styling**: Tailwind CSS with a custom 'Midnight Luxury' design system.\n\nWe utilized a **Grid Layout** system for maximum information density without clutter, ensuring that every tool gets its moment in the spotlight.",
-            "images": [
-                "/images/neubofy_architecture_diagram_1765115521934.png",
-                "/images/neubofy_marketplace_grid_1765115469048.png",
-                "/images/NEUBOFYsummry.png"
-            ],
-            "imageStyle": "grid",
-            "links": [
-                {
-                    "label": "View Architecture Diagram",
-                    "url": "#"
-                },
-                {
-                    "label": "Read Tech Blog",
-                    "url": "#"
-                }
-            ]
-        }
-    ]
+    "featured": true
 }

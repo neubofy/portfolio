@@ -73,7 +73,7 @@ export default function Hero() {
                 </a>
                 {/* Professional Title */}
                 <div className="mt-8 text-xl md:text-2xl text-gray-400 font-light tracking-wide max-w-2xl">
-                    <TypewriterText text="18yo AI Generalist • Vibe Coding Expert • Digital Perfectionist" speed={0.03} delay={1} />
+                    <TypewriterText text="AI-First Builder • Vibe Coder • Shipping at Lightspeed" speed={0.03} delay={1} />
                 </div>
             </motion.div>
 

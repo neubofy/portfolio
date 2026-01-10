@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InstantDeploy - No-Build Deployment</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ============================================
+           🎨 INSTANTDEPLOY THEME - TERMINAL / DEVTOOL
+           ============================================ */
+        :root {
+            --green: #22c55e;
+            --bg: #000000;
+            --surface: #111111;
+            --border: #333333;
+            --text: #e5e5e5;
+            --gray: #888888;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        nav {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            color: var(--green);
+        }
+
+        .back {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .back:hover {
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .terminal-window {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 3rem 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .terminal-header {
+            padding: 0.75rem 1rem;
+            background: #1a1a1a;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .red {
+            background: #ef4444;
+        }
+
+        .yellow {
+            background: #f59e0b;
+        }
+
+        .green {
+            background: #22c55e;
+        }
+
+        .terminal-body {
+            padding: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .command {
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .output {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .success {
+            color: var(--green);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .tagline {
+            color: var(--gray);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--text);
+            color: var(--bg);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 4px;
+        }
+
+        .btn:hover {
+            background: var(--green);
+            color: black;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature h3 {
+            color: var(--green);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">~/instant-deploy</div>
+        <a href="/projects" class="back">../back</a>
+    </nav>
+
+    <div class="container">
+        <h1>Zero-Config Deployment</h1>
+        <p class="tagline">A vanilla JS engine to code, zip, and deploy static sites instantly. No Node_modules. No
+            build time.</p>
+
+        <a href="https://instantdeploy.vercel.app" target="_blank" class="btn">_Run Tool</a>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <div class="terminal-body">
+                <div class="command">> analyzing project structure...</div>
+                <div class="output"> found index.html</div>
+                <div class="output"> found style.css</div>
+                <div class="command">> zipping assets...</div>
+                <div class="output"> using JSZip compression [level: 9]</div>
+                <div class="command">> deploying to Netlify...</div>
+                <div class="success">✔ Deployment Successful!</div>
+                <div class="output"> url: https://your-site.netlify.app</div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <h3>_Client-Side Engine</h3>
+                <p>Runs entirely in the browser using Vanilla JS. No server processing required.</p>
+            </div>
+            <div class="feature">
+                <h3>_Instant Compression</h3>
+                <p>Uses JSZip for on-the-fly asset packaging without external dependencies.</p>
+            </div>
+            <div class="feature">
+                <h3>_Zero Dependencies</h3>
+                <p>Built with pure web standards. No heavy frameworks or build steps.</p>
+            </div>
+            <div class="feature">
+                <h3>_Netlify API</h3>
+                <p>Direct integration with Netlify's deployment hooks for live URL generation.</p>
+            </div>
+        </div>
+
+        <footer
+            style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--gray); font-size: 0.8rem;">
+            git clone <a href="https://github.com/pawanwashudev-official/instantdeploy"
+                style="color: var(--text);">pawanwashudev-official/instantdeploy</a>
+        </footer>
+    </div>
+</body>
+
+</html>

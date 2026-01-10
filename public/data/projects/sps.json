@@ -1,0 +1,13 @@
+{
+    "id": "sps",
+    "title": "Students Public School - Official",
+    "description": "The official digital platform for my own school. Built from scratch using modern Next.js architecture.",
+    "tags": [
+        "Next.js",
+        "Official",
+        "Institutional"
+    ],
+    "thumbnail": "/images/sps-thumb.png",
+    "liveLink": "https://studentspublicschool.vercel.app",
+    "featured": true
+}

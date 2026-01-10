@@ -1,65 +1,14 @@
 {
     "id": "photo-editor",
-    "title": "Web based photo editor and deployer",
-    "description": "A professional-grade, AI-powered image workspace that brings 'Visual Studio' precision to photo editing. Built for creators who refuse to compromise on speed or quality.",
+    "title": "Neubofy Photo Studio",
+    "description": "Professional-grade web image editor powered by WebGL. Photoshop-like performance in the browser.",
     "tags": [
-        "React 19",
+        "WebGL",
         "Canvas API",
-        "Cloudinary AI",
-        "System Architecture"
+        "React",
+        "Privacy-First"
     ],
+    "thumbnail": "/images/photo-editor-thumb.png",
     "liveLink": "https://photoeditor.neubofy.bar",
-    "thumbnail": "https://images.unsplash.com/photo-1621600411688-4be93cd68504?q=80&w=1000&auto=format&fit=crop",
-    "heroImage": "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2600&auto=format&fit=crop",
-    "gallery": [
-        "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=800&auto=format&fit=crop",
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-        "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop"
-    ],
-    "sections": [
-        {
-            "title": "The Vision",
-            "content": "### Why another editor?\nMost browser-based editors are clunky toys. **Neubofy Elite** was architected to be a *tool*. \n\nWe wanted the precision of desktop software with the accessibility of the web. \n\n> *\"It's not just about cropping. It's about a workflow that respects your intelligence.\"*\n\nThis project demonstrates full-stack capability: UI/UX design, complex image processing logic, and seamless cloud integration.",
-            "imageStyle": "grid",
-            "images": [
-                "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=800&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=800&auto=format&fit=crop"
-            ],
-            "links": [
-                {
-                    "label": "Read the Design Philosophy",
-                    "url": "#"
-                }
-            ]
-        },
-        {
-            "title": "Core Architecture",
-            "content": "The system is built on a high-performance **Canvas Engine** that handles real-time pixel manipulation without UI lag.\n\n| Module | Technology | internal_latency |\n| :--- | :--- | :--- |\n| **Core Engine** | HTML5 Canvas + WebWorkers | < 16ms |\n| **State Mgmt** | React Context + Immiscible | 0ms |\n| **Cloud Sync** | ImgBB API / Cloudinary | ~200ms |\n\nWe utilize a **clean, studio-like workspace** that keeps controls accessible but unobtrusive.",
-            "imageStyle": "grid",
-            "images": [
-                "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=800&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=800&auto=format&fit=crop"
-            ]
-        },
-        {
-            "title": "Feature Deep Dive",
-            "content": "### 1. Smart Presets\nWe analyzed the most common use-cases and built one-click solutions:\n- **Passbook Mode**: Instantly crops and aligns for official document standards.\n- **Insta-Ready**: Auto-pads images to 4:5 or 1:1 without losing content.\n\n### 2. The Production Hub\nUnlike typical editors, we included a **Download Master**. You can batch export your session or generate a **Base64 String** instantly for developer handoffs.",
-            "imageStyle": "slider",
-            "images": [
-                "https://images.unsplash.com/photo-1572044162444-ad60f128bdea?q=80&w=800&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop"
-            ],
-            "links": [
-                {
-                    "label": "Try Auto-Crop Live",
-                    "url": "https://photoeditor.neubofy.bar"
-                },
-                {
-                    "label": "View Source",
-                    "url": "#"
-                }
-            ]
-        }
-    ]
+    "featured": true
 }
